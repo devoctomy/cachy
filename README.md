@@ -78,13 +78,6 @@ For example, taking quick notes with a pen and paper, can be replaced by taking 
 
 We would like to take a moment to introduce you to cachy, created by devoctomy (that's us) to protect your credentials, and help provide an adequate balance of convenience and security. If you're not using a credential manager at current, or using one of the methods that we have advised against, or just looking for a more cost-effective solution, then please consider cachy.
 
-<div>
-	<a href='https://play.google.com/store/apps/details?id=com.devoctomy.cachy&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
-		<img alt='Get it on Google Play' src='https://play.google.com/intl/en_gb/badges/images/generic/en_badge_web_generic.png' style='width: 284px;margin-left: auto;margin-right: auto;'/>
-	</a>
-			
-	<a href='https://www.microsoft.com/store/apps/9N8T3C0FLL87?cid=storebadge&ocid=badge'>
-		<img src='https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png' alt='English badge' style='width: 284px; height: 104px;margin-left: auto;margin-right: auto;'/>
-	</a>
-</div>
+##
 
+As of 30th December 2019.  All source code for the cachy system, including the Azure Function app used for handling OAuth connections to the app has been made open-source.
