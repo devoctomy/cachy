@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:converters="clr-namespace:cachy.Converters"              
+             x:Class="cachy.Views.SettingsView">
+    <ContentView.Content>
+        <controls:TabView SelectedTab="{Binding Path=SelectedTabPage}">
+            <controls:TabView.Tabs>
+                <x:Array Type="{Type controls:TabPage}">
+                    <controls:TabPage TabTitle="VAULT">
+                        <controls:TabPage.TabPageContent>
+                            <ScrollView Orientation="Vertical"
+                                        HorizontalScrollBarVisibility="Never"
+                                        VerticalScrollBarVisibility="Default">
+                                <StackLayout Orientation="Vertical"
+                                         Margin="8">
+                                    <controls:SwitchWithLabel x:Name="AutoOpenVaultSwitch"
+                                                          Label="Auto Open Default Vault"
+                                                          HorizontalOptions="Fill"
+                                                          IsSwitched="{Binding Path=AutoOpenVault}">
+                                    </controls:SwitchWithLabel>
+                                    <Picker Margin="8,0,0,0"
+                                        ItemsSource="{Binding Vaults}"
+                                        IsEnabled="{Binding Path=AutoOpenVault}"
+                                        SelectedItem="{Binding Path=DefaultVault}">
+                                    </Picker>
+                                    <controls:SwitchWithLabel x:Name="AutoCloseVaultSwitch"
+                                                          Label="Auto Close Vault"
+                                                          HorizontalOptions="Fill"
+                                                          IsSwitched="{Binding Path=AutoCloseVault}">
+                                    </controls:SwitchWithLabel>
+                                    <Grid Margin="8,0,16,0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <controls:LabelEx Text="Close After (Minutes)"
+                                                          HorizontalOptions="Start"
+                                                          IsEnabled="{Binding Path=AutoCloseVault}">
+                                            </controls:LabelEx>
+                                            <controls:NumericUpDown Grid.Column="1"
+                                                                MinValue="1"
+                                                                MaxValue="10"
+                                                                HorizontalOptions="Fill"
+                                                                Value="{Binding Path=AutoCloseVaultMinutes}"
+                                                                IsEnabled="{Binding Path=AutoCloseVault}">
+                                            </controls:NumericUpDown>
+                                        </Grid>
+                                    </Grid>
+                                    <controls:SwitchWithLabel x:Name="AutoSaveSwitch"
+                                                          Label="Auto Save Vault"
+                                                          HorizontalOptions="Fill"
+                                                          IsSwitched="{Binding AutoSave}">
+                                    </controls:SwitchWithLabel>
+                                    <controls:SwitchWithLabel Label="Upon accepting credential changes"
+                                                          HorizontalOptions="Fill"
+                                                          IsSwitched="{Binding AutoSaveOnAcceptCredChanges}"
+                                                          IsEnabled="{Binding AutoSave}"
+                                                          Margin="8,0,0,0"
+                                                          FontAttributes="None"
+                                                          LabelColour="{StaticResource TextColour}">
+                                    </controls:SwitchWithLabel>
+                                    <controls:SwitchWithLabel Label="Upon duplicating a credential"
+                                                          HorizontalOptions="Fill"
+                                                          IsSwitched="{Binding AutoSaveOnDuplicatingCred}"
+                                                          IsEnabled="{Binding AutoSave}"
+                                                          Margin="8,0,0,0"
+                                                          FontAttributes="None"
+                                                          LabelColour="{StaticResource TextColour}">
+                                    </controls:SwitchWithLabel>
+                                    <controls:SwitchWithLabel Label="Upon deleting a credential"
+                                                          HorizontalOptions="Fill"
+                                                          IsSwitched="{Binding AutoSaveOnDeletingCred}"
+                                                          IsEnabled="{Binding AutoSave}"
+                                                          Margin="8,0,0,0"
+                                                          FontAttributes="None"
+                                                          LabelColour="{StaticResource TextColour}">
+                                    </controls:SwitchWithLabel>
+                                    <Grid>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <controls:LabelEx Text="Default Browse Protocol"
+                                                          HorizontalOptions="Start"
+                                                          StyleClass="SubHeader"
+                                                          FontAttributes="Bold"
+                                                          EnabledTextColour="{StaticResource Accent}">
+                                            </controls:LabelEx>
+                                            <Entry Grid.Column="1"
+                                               Keyboard="Url"
+                                               Text="{Binding DefaultBrowseProtocol}"></Entry>
+                                        </Grid>
+                                    </Grid>
+                                    <Label Text="Password Aging"
+                                           TextColor="{StaticResource Accent}"
+                                           FontAttributes="Bold"></Label>
+                                    <controls:SwitchWithLabel Label="Show Age"
+                                                              HorizontalOptions="Fill"
+                                                              IsSwitched="{Binding ShowPasswordAge}"
+                                                              Margin="8,0,0,0"
+                                                              FontAttributes="None"
+                                                              LabelColour="{StaticResource TextColour}">
+                                    </controls:SwitchWithLabel>
+                                    <Grid Margin="8,0,16,0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <controls:LabelEx Text="Old after 'n' days"
+                                                              HorizontalOptions="Start">
+                                            </controls:LabelEx>
+                                            <controls:NumericUpDown Grid.Column="1"
+                                                                MinValue="7"
+                                                                MaxValue="365"
+                                                                HorizontalOptions="Fill"
+                                                                Value="{Binding Path=DaysForOld}">
+                                            </controls:NumericUpDown>
+                                        </Grid>
+                                    </Grid>
+                                </StackLayout>
+                            </ScrollView>
+                        </controls:TabPage.TabPageContent>
+                    </controls:TabPage>
+                    <controls:TabPage TabTitle="SYNC">
+                        <controls:TabPage.Resources>
+                            <ResourceDictionary>
+                                <converters:BooleanInverterConverter x:Key="BooleanInverterConverter" />
+                            </ResourceDictionary>
+                        </controls:TabPage.Resources>
+                        <controls:TabPage.TabPageContent>
+                            <Grid Margin="8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="64"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <controls:CloudProvidersList x:Name="CloudProvidersList"
+                                                             ConfiguredCloudProviders="{Binding Path=ConfiguredCloudProviders}"
+                                                             SelectedProvider="{Binding Path=SelectedCloudProvider, Mode=TwoWay}"
+                                                             SelectionMode="Single"
+                                                             AllowRemoveProvider="True">
+                                </controls:CloudProvidersList>
+
+                                <controls:GlyphButton Glyph="Circle_Add_03"
+                                                      Text="Add New Provider"
+                                                      Mode="GlyphAndTextLeftRight"
+                                                      HeightRequest="64"
+                                                      Command="{Binding Path=AddCloudProvider}"
+                                                      BackgroundColor="{StaticResource AltGlyphButtonBackgroundColour}"
+                                                      IconMargin="16,0,0,0"
+                                                      Margin="0,8,0,0"
+                                                      MinimumHeightRequest="64"
+                                                      Grid.Row="1">
+                                </controls:GlyphButton>
+                            </Grid>
+                        </controls:TabPage.TabPageContent>
+                    </controls:TabPage>
+                    <controls:TabPage TabTitle="ADVANCED">
+                        <controls:TabPage.TabPageContent>
+                            <ScrollView Orientation="Vertical"
+                                        HorizontalScrollBarVisibility="Never"
+                                        VerticalScrollBarVisibility="Default">
+                                <StackLayout Orientation="Vertical"
+                                         Margin="8">
+                                    <controls:SwitchWithLabel x:Name="PBKDF2KeyDerivationSwitch"
+                                                          Label="PBKDF2 Key Derivation"
+                                                          HorizontalOptions="Fill"
+                                                          IsSwitched="{Binding PBKDF2Enabled}">
+                                    </controls:SwitchWithLabel>
+                                    <Grid Margin="8,0,0,0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <controls:LabelEx Text="Iteration Count"
+                                                          HorizontalOptions="Start"
+                                                          IsEnabled="{Binding PBKDF2Enabled}">
+                                            </controls:LabelEx>
+                                            <Entry Grid.Column="1"
+                                               Keyboard="Numeric"
+                                               IsEnabled="{Binding PBKDF2Enabled}"
+                                               Text="{Binding PBKDF2IterationCount}"></Entry>
+                                        </Grid>
+                                    </Grid>
+                                    <controls:SwitchWithLabel x:Name="SCryptKeyDerivationSwitch"
+                                                          Label="SCrypt Key Derivation"
+                                                          HorizontalOptions="Fill"
+                                                          IsSwitched="{Binding SCryptEnabled}">
+                                    </controls:SwitchWithLabel>
+                                    <Grid Margin="8,0,0,0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <controls:LabelEx Text="Iteration Count"
+                                                          HorizontalOptions="Start"
+                                                          IsEnabled="{Binding SCryptEnabled}">
+                                            </controls:LabelEx>
+                                            <Entry Grid.Column="1"
+                                               Keyboard="Numeric"
+                                               IsEnabled="{Binding SCryptEnabled}"
+                                               Text="{Binding SCryptIterationCount}"></Entry>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid Margin="8,0,0,0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <controls:LabelEx Text="Block Size"
+                                                          HorizontalOptions="Start"
+                                                          IsEnabled="{Binding SCryptEnabled}">
+                                            </controls:LabelEx>
+                                            <Entry Grid.Column="1"
+                                               Keyboard="Numeric"
+                                               IsEnabled="{Binding SCryptEnabled}"
+                                               Text="{Binding SCryptBlockSize}"></Entry>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid Margin="8,0,0,0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <controls:LabelEx Text="Thread Count"
+                                                          HorizontalOptions="Start"
+                                                          IsEnabled="{Binding SCryptEnabled}">
+                                            </controls:LabelEx>
+                                            <Entry Grid.Column="1"
+                                               Keyboard="Numeric"
+                                               IsEnabled="{Binding SCryptEnabled}"
+                                               Text="{Binding SCryptThreadCount}"></Entry>
+                                        </Grid>
+                                    </Grid>
+                                    <controls:GlyphButton Glyph="Beaker"
+                                          Text="{Binding TestSettingsButtonText}" 
+                                          Command="{Binding TestDerivationSettingsCommand}" 
+                                          Mode="GlyphAndTextLeftRight" 
+                                          HeightRequest="64"
+                                          BackgroundColor="{StaticResource AltGlyphButtonBackgroundColour}"
+                                          Margin="0,8,0,0"
+                                          IconMargin="16,0,0,0"></controls:GlyphButton>
+                                    <controls:SwitchWithLabel x:Name="ClipboardObfusctorSwitch"
+                                                          Label="Clipboard Obfusctor"
+                                                          HorizontalOptions="Fill"
+                                                          IsSwitched="{Binding EnableClipboardObfuscator}"
+                                                              Margin="0,16,0,0">
+                                    </controls:SwitchWithLabel>
+                                    <Grid Margin="8,0,0,0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <controls:LabelEx Text="Restart Delay (Seconds)"
+                                                          HorizontalOptions="Start"
+                                                          IsEnabled="{Binding EnableClipboardObfuscator}">
+                                            </controls:LabelEx>
+                                            <Entry Grid.Column="1"
+                                               Keyboard="Numeric"
+                                               IsEnabled="{Binding EnableClipboardObfuscator}"
+                                               Text="{Binding ClipboardObfuscatorDisableSecondsAfterCopy}"></Entry>
+                                        </Grid>
+                                    </Grid>
+                                </StackLayout>
+                            </ScrollView>
+                        </controls:TabPage.TabPageContent>
+                    </controls:TabPage>
+                    <controls:TabPage TabTitle="DEBUG">
+                        <controls:TabPage.TabPageContent>
+                            <ScrollView Orientation="Vertical"
+                                        HorizontalScrollBarVisibility="Never"
+                                        VerticalScrollBarVisibility="Default">
+                                <StackLayout Orientation="Vertical"
+                                         Margin="8">
+                                    <controls:SwitchWithLabel x:Name="LoggingEnabledSwitch"
+                                                          Label="Enable Logging"
+                                                          HorizontalOptions="Fill"
+                                                          IsSwitched="{Binding Path=LoggingEnabled}">
+                                    </controls:SwitchWithLabel>
+                                    <Button x:Name="ResetButton"
+                                            StyleClass="Danger"
+                                            Text="Reset"
+                                            Command="{Binding Path=ResetCommand}">
+                                    </Button>
+                                </StackLayout>
+                            </ScrollView>
+                        </controls:TabPage.TabPageContent>
+                    </controls:TabPage>
+                </x:Array>
+            </controls:TabView.Tabs>
+        </controls:TabView>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

@@ -1,0 +1,108 @@
+@font-face {
+font-family: 'cachyglyphs';
+src:
+url('Fonts/cachyglyphs.ttf') format('truetype'),
+url('Fonts/cachyglyphs.woff') format('woff'),
+url('Fonts/cachyglyphs.eot') format('eot'),
+url('Fonts/cachyglyphs.svg?#cachyglyphs') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+
+[class^="sf-icon-"], [class*=" sf-icon-"] {
+ font-family: 'cachyglyphs' !important;
+speak: none;
+font-size: 55px;
+font-style: normal;
+font-weight: normal;
+font-variant: normal;
+text-transform: none;
+line-height: 1;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
+.sf-icon-locker:before { content: "\e700"; }
+.sf-icon-login-01:before { content: "\e701"; }
+.sf-icon-user-login:before { content: "\e702"; }
+.sf-icon-add-new:before { content: "\e703"; }
+.sf-icon-recycle-bin:before { content: "\e704"; }
+.sf-icon-command-undo:before { content: "\e705"; }
+.sf-icon-new:before { content: "\e706"; }
+.sf-icon-in:before { content: "\e707"; }
+.sf-icon-check:before { content: "\e708"; }
+.sf-icon-lock:before { content: "\e709"; }
+.sf-icon-up-arrow---01:before { content: "\e70a"; }
+.sf-icon-expander-down---01:before { content: "\e70b"; }
+.sf-icon-circle-remove--01:before { content: "\e70c"; }
+.sf-icon-circle-add--03:before { content: "\e70d"; }
+.sf-icon-google-drive:before { content: "\e70e"; }
+.sf-icon-gmail:before { content: "\e70f"; }
+.sf-icon-android:before { content: "\e710"; }
+.sf-icon-google-search:before { content: "\e711"; }
+.sf-icon-chrome:before { content: "\e712"; }
+.sf-icon-youtube1:before { content: "\e713"; }
+.sf-icon-google-talk:before { content: "\e714"; }
+.sf-icon-google-plus:before { content: "\e715"; }
+.sf-icon-visual-studio:before { content: "\e716"; }
+.sf-icon-new-microsoft:before { content: "\e717"; }
+.sf-icon-hotmail:before { content: "\e718"; }
+.sf-icon-apple:before { content: "\e719"; }
+.sf-icon-mac-pc:before { content: "\e71a"; }
+.sf-icon-i-phone:before { content: "\e71b"; }
+.sf-icon-device-tablet:before { content: "\e71c"; }
+.sf-icon-e-book:before { content: "\e71d"; }
+.sf-icon-security-group-mem-wf:before { content: "\e71e"; }
+.sf-icon-server-01:before { content: "\e71f"; }
+.sf-icon-network-sharing:before { content: "\e720"; }
+.sf-icon-database-connection:before { content: "\e721"; }
+.sf-icon-data-information:before { content: "\e722"; }
+.sf-icon-database-wf:before { content: "\e723"; }
+.sf-icon-user-unlocked-02-wf:before { content: "\e724"; }
+.sf-icon-user-globe-wf:before { content: "\e725"; }
+.sf-icon-earth-wf:before { content: "\e726"; }
+.sf-icon-earth-node:before { content: "\e727"; }
+.sf-icon-facebook:before { content: "\e728"; }
+.sf-icon-twitter:before { content: "\e729"; }
+.sf-icon-bird:before { content: "\e72a"; }
+.sf-icon-twitter-bird:before { content: "\e72b"; }
+.sf-icon-pinterest:before { content: "\e72c"; }
+.sf-icon-boy-01:before { content: "\e72d"; }
+.sf-icon-infant:before { content: "\e72e"; }
+.sf-icon-nurse-01:before { content: "\e72f"; }
+.sf-icon-nurse:before { content: "\e730"; }
+.sf-icon-ninja-02:before { content: "\e731"; }
+.sf-icon-beaker:before { content: "\e732"; }
+.sf-icon-audit:before { content: "\e733"; }
+.sf-icon-armour:before { content: "\e734"; }
+.sf-icon-menu:before { content: "\e735"; }
+.sf-icon-settings-02:before { content: "\e736"; }
+.sf-icon-help:before { content: "\e737"; }
+.sf-icon-palette-01:before { content: "\e738"; }
+.sf-icon-card-image:before { content: "\e739"; }
+.sf-icon-link-wf:before { content: "\e73a"; }
+.sf-icon-drop-box:before { content: "\e73b"; }
+.sf-icon-cloud-download:before { content: "\e73c"; }
+.sf-icon-cloud-upload:before { content: "\e73d"; }
+.sf-icon-warning-message:before { content: "\e73e"; }
+.sf-icon-cloud:before { content: "\e73f"; }
+.sf-icon-cloud-private-02:before { content: "\e740"; }
+.sf-icon-onedrive:before { content: "\e741"; }
+.sf-icon-folder-01:before { content: "\e742"; }
+.sf-icon-folder-open:before { content: "\e743"; }
+.sf-icon-cloud-recycle:before { content: "\e744"; }
+.sf-icon-data-import:before { content: "\e745"; }
+.sf-icon-text-highlight-color:before { content: "\e746"; }
+.sf-icon-data-replace:before { content: "\e747"; }
+.sf-icon-export:before { content: "\e748"; }
+.sf-icon-show:before { content: "\e749"; }
+.sf-icon-tag-01:before { content: "\e74a"; }
+.sf-icon-amazon-01:before { content: "\e74b"; }
+.sf-icon-principal-02:before { content: "\e74c"; }
+.sf-icon-password-03-wf:before { content: "\e74d"; }
+.sf-icon-paste:before { content: "\e74e"; }
+.sf-icon-save:before { content: "\e74f"; }
+.sf-icon-synchronize:before { content: "\e750"; }
+.sf-icon-love---01:before { content: "\e751"; }
+.sf-icon-new-report:before { content: "\e752"; }
+.sf-icon-tools:before { content: "\e753"; }

@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Views.AcknowledgementsView"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:fonts="clr-namespace:cachy.Fonts"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             xmlns:behaviors="clr-namespace:cachy.Behaviors"
+             x:Name="Root"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <views:PageNavigationAwareView.Resources>
+        <ResourceDictionary>
+            <converters:ObjectToStringConverter x:Key="ObjectToStringConverter" />
+            <converters:ChangeToColourConverter x:Key="ChangeToColourConverter" />
+            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter"/>
+        </ResourceDictionary>
+    </views:PageNavigationAwareView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="72"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Acknowledgements"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding Path=BackCommand}">
+                </controls:GlyphButton>
+            </Grid>
+            <Label Grid.Row="1"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   Text="cachy is built on the shoulders of giants, using frameworks from the big boys like Microsoft, but also smaller, developers.  devoctomy would like to acknowledge some key sources here, and thank them for their contributions.  Click them for more information...">
+            </Label>
+            <ListView x:Name="AcknowledgementsList"
+                      ItemsSource="{Binding Path=Acknowledgements}"
+                      Grid.Row="2"
+                      Margin="16"
+                      HasUnevenRows="True"
+                      SelectionMode="Single"
+                      CachingStrategy="RecycleElement">
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="ItemSelected" 
+                                                              Command="{Binding AcknowledgementSelectedCommand}" 
+                                                              Converter="{StaticResource SelectedItemConverter}" />
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="8,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="96"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_LOVE_01}"
+                                       FontSize="24"
+                                       HorizontalOptions="Center"
+                                       StyleClass="HeaderGlyphComment"
+                                       TextColor="Red"
+                                       VerticalOptions="Center">
+                                    <Label.FontFamily>
+                                        <OnPlatform x:TypeArguments="x:String"
+                                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                    </Label.FontFamily>
+                                </Label>
+                                <StackLayout Grid.Column="1"
+                                             Orientation="Vertical"
+                                             Margin="4">
+                                    <Label Text="{Binding Path=Name}"
+                                           VerticalTextAlignment="Center"
+                                           FontAttributes="Bold"/>
+                                    <Label Text="{Binding Path=Description}"
+                                           FontAttributes="Italic"
+                                           TextColor="DarkGray"
+                                           VerticalTextAlignment="Center"/>
+                                    <Label Text="{Binding Path=Website}"
+                                           TextDecorations="Underline"
+                                           TextColor="Blue"
+                                           VerticalTextAlignment="Start"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Controls.ExpandableView"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             x:Name="Root">
+    <ContentView.Content>
+        <Frame Padding="4"
+               BackgroundColor="{Binding BackgroundColor, Source={x:Reference Root}}"
+               BorderColor="{StaticResource ItemBorderColour}">
+            <StackLayout>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="48"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                           StyleClass="Header"
+                           Text="{Binding Title, Source={x:Reference Root}}"
+                           VerticalOptions="Center"
+                           Margin="8,0,0,0"></Label>
+                    <Grid Grid.Column="1">
+                        <controls:GlyphButton x:Name="ExpandButton"
+                                              IsVisible="{Binding IsCollapsed, Source={x:Reference Root}, Mode=OneWay}"
+                                              Glyph="Expander_Down_01" 
+                                              Mode="GlyphOnly" 
+                                              Command="{Binding ExpandCommand, Source={x:Reference Root}}"
+                                              HeightRequest="32"
+                                              WidthRequest="32"
+                                              MinimumHeightRequest="32"
+                                              MinimumWidthRequest="32"
+                                              GlyphFontSize="24"
+                                              Margin="0,0,8,0">
+                        </controls:GlyphButton>
+                        <controls:GlyphButton x:Name="ContractButton"
+                                              IsVisible="{Binding IsExpanded, Source={x:Reference Root}, Mode=OneWay}"
+                                              Glyph="Up_Arrow_01" 
+                                              Mode="GlyphOnly" 
+                                              Command="{Binding ContractCommand, Source={x:Reference Root}}"
+                                              HeightRequest="32"
+                                              WidthRequest="32"
+                                              MinimumHeightRequest="32"
+                                              MinimumWidthRequest="32"
+                                              GlyphFontSize="24"
+                                              Margin="0,0,8,0">
+                        </controls:GlyphButton>
+                    </Grid>
+                </Grid>
+                <StackLayout>
+                    <Grid x:Name="ExpandedContentGrid"
+                          IsVisible="{Binding IsExpanded, Source={x:Reference Root}, Mode=OneWay}">
+                        <ContentView Content="{Binding ExpandedContent, Source={x:Reference Root}}">
+                            
+                        </ContentView>
+                    </Grid>
+                    <Grid x:Name="CollapsedContentGrid"
+                          IsVisible="{Binding IsCollapsed, Source={x:Reference Root}, Mode=OneWay}">
+                        <ContentView Content="{Binding CollapsedContent, Source={x:Reference Root}}">
+                            
+                        </ContentView>
+                    </Grid>
+                    <Grid x:Name="FooterContentGrid"
+                          IsVisible="{Binding IsFooterVisible, Source={x:Reference Root}, Mode=OneWay}">
+                        <ContentView Content="{Binding FooterContent, Source={x:Reference Root}}">
+                            
+                        </ContentView>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

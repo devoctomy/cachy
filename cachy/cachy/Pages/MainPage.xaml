@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<b:BurgerMenuHostPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:b="clr-namespace:cachy.Navigation.BurgerMenu"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             x:Class="cachy.Pages.MainPage"
+             MenuNotExpandedWidth="48"
+             MenuExpandedWidth="250"
+             MenuBackgroundColor="LightGray"
+             Title="cachy"
+             x:Name="Root"
+             Appearing="Root_Appearing">
+    <b:BurgerMenuHostPage.Logo>
+        <ContentView>
+            <Grid Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <controls:Icon ResourceId="cachy.Assets.Images.cachyicon_centred.svg"
+                               HorizontalOptions="Fill"
+                               VerticalOptions="Fill"
+                               Margin="0,4,0,4"/>
+                <Label Grid.Column="1"
+                       Text="cachy"
+                       StyleClass="Header"
+                       VerticalOptions="Center"/>
+            </Grid>
+        </ContentView>
+    </b:BurgerMenuHostPage.Logo>
+    <b:BurgerMenuHostPage.Footer>
+        <Grid>
+            <Label Text="{Binding Path=VersionText, Source={Reference Root}}"
+                   HorizontalTextAlignment="End"
+                   VerticalTextAlignment="Start"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Center"
+                   StyleClass="Comment"
+                   Margin="0,0,8,0">
+            </Label>
+        </Grid>
+    </b:BurgerMenuHostPage.Footer>
+</b:BurgerMenuHostPage>

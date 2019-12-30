@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             x:Class="cachy.Controls.SwitchWithLabel"
+             x:Name="Root">
+    <ContentView.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="64"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <controls:LabelEx Text="{Binding Label, Source={x:Reference Root}}"
+                                EnabledTextColour="{Binding LabelColour, Source={x:Reference Root}}"
+                                IsEnabled="{Binding IsEnabled, Source={x:Reference Root}}"
+                                VerticalOptions="Center"
+                                StyleClass="SubHeader"
+                                FontAttributes="{Binding FontAttributes, Source={x:Reference Root}}"></controls:LabelEx>
+            <Switch Grid.Column="1"
+                    HorizontalOptions="End"
+                    OnColor="{Binding OnColour, Source={x:Reference Root}}"
+                    IsToggled="{Binding IsSwitched, Mode=TwoWay, Source={x:Reference Root}}"
+                    VerticalOptions="Center"
+                    IsEnabled="{Binding IsEnabled, Source={x:Reference Root}}"></Switch>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

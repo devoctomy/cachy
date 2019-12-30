@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Navigation.BurgerMenu.BurgerMenuHostPage"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             x:Name="Root">
+    <ContentPage.Content>
+        <Grid>
+            <Grid x:Name="PageFrame"
+                   Margin="{Binding Path=PageFrameMargin, Source={Reference Root}}"
+                   Padding="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{Binding Path=BurgerTopRowHeight, Source={Reference Root}}"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Frame BackgroundColor="{StaticResource BackgroundColour}"
+                       Padding="0"
+                       CornerRadius="0"
+                       HasShadow="False">
+                    <Grid>
+                        <Label Text="{Binding Path=SelectedItem.PageTitle, Source={Reference Root}}"
+                               HorizontalTextAlignment="Start"
+                               VerticalTextAlignment="Center"
+                               Margin="8,0,0,0"
+                               StyleClass="Header"></Label>
+                    </Grid>
+                </Frame>
+                <ContentView x:Name="ViewContent"
+                             Grid.Row="1"
+                             Content="{Binding Path=SelectedItem.PageViewInstance, Source={Reference Root}}">
+                </ContentView>
+            </Grid>
+            <Button Opacity="0.1"
+                    IsVisible="{Binding Path=IsMenuExpanded, Source={Reference Root}}"
+                    Command="{Binding Path=ExpandToggleCommand, Source={Reference Root}}">
+            </Button>
+            <Frame x:Name="BurgerMenuFrame"
+                   WidthRequest="{Binding Path=MenuNotExpandedWidth, Source={Reference Root}, Mode=OneTime}"
+                   HorizontalOptions="Start"
+                   BackgroundColor="{Binding Path=MenuBackgroundColor, Source={Reference Root}}"
+                   Padding="0"
+                   CornerRadius="0"
+                   HasShadow="False"
+                   Margin="0,0,0,2">
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="{Binding Path=BurgerTopRowHeight, Source={Reference Root}}"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="{Binding Path=FooterRowHeight, Source={Reference Root}}"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <ContentView x:Name="LogoView"
+                                     Content="{Binding Path=Logo, Source={Reference Root}}"  
+                                     IsVisible="true"
+                                     Opacity="0">
+                        </ContentView>
+                        <controls:GlyphButton HeightRequest="{Binding Path=MenuNotExpandedWidth, Source={Reference Root}}"
+                                              WidthRequest="{Binding Path=MenuNotExpandedWidth, Source={Reference Root}}"
+                                              Glyph="Menu"
+                                              Mode="GlyphOnly"
+                                              Command="{Binding Path=ExpandToggleCommand, Source={Reference Root}}"
+                                              VerticalOptions="Center"
+                                              HorizontalOptions="End">
+                        </controls:GlyphButton>
+                    </Grid>
+                    <Frame  Grid.Row="1"
+                            Padding="0"
+                            CornerRadius="0"
+                            BackgroundColor="{Binding Path=MenuBackgroundColor, Source={Reference Root}}"
+                            HasShadow="False">
+                        <ListView x:Name="MenuItemsList"
+                                  Grid.Row="1"
+                                  ItemsSource="{Binding Path=VisibleSelectedItemChildItems, Source={Reference Root}}"
+                                  RowHeight="{Binding Path=MenuNotExpandedWidth, Source={Reference Root}}"
+                                  VerticalScrollBarVisibility="Never"
+                                  SelectionMode="None"
+                                  CachingStrategy="RecycleElement">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <controls:GlyphButton Glyph="{Binding Path=Glyph}"
+                                                          Mode="{Binding Path=ButtonMode}"
+                                                          Text="{Binding Path=MenuTitle}"
+                                                          Command="{Binding Path=MenuItemCommand}"
+                                                          CommandParameter="{Binding}"
+                                                          WidthRequest="48"
+                                                          HorizontalOptions="{Binding Path=ButtonHorizontalOptions}"
+                                                          LabelFontSize="20"
+                                                          LabelFontAttributes="Bold"
+                                                          IsEnabled="{Binding Path=IsEnabled}">
+                                        </controls:GlyphButton>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Frame>
+                    <Frame  Grid.Row="1"
+                            Padding="0"
+                            CornerRadius="0"
+                            VerticalOptions="End"
+                            BackgroundColor="{Binding Path=MenuBackgroundColor, Source={Reference Root}}"
+                            HasShadow="False">
+                        <ListView Grid.Row="1"
+                                  ItemsSource="{Binding Path=CommonItems, Source={Reference Root}}"
+                                  RowHeight="{Binding Path=MenuNotExpandedWidth, Source={Reference Root}}"
+                                  VerticalScrollBarVisibility="Never"
+                                  SelectionMode="None"
+                                  CachingStrategy="RecycleElement">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <controls:GlyphButton Glyph="{Binding Path=Glyph}"
+                                                          Mode="{Binding Path=ButtonMode}"
+                                                          Text="{Binding Path=MenuTitle}"
+                                                          Command="{Binding Path=MenuItemCommand}"
+                                                          CommandParameter="{Binding}"
+                                                          WidthRequest="48"
+                                                          HorizontalOptions="{Binding Path=ButtonHorizontalOptions}"
+                                                          LabelFontSize="20"
+                                                          LabelFontAttributes="Bold"
+                                                              IsEnabled="{Binding Path=IsEnabled}">
+                                        </controls:GlyphButton>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Frame>
+                    <ContentView Grid.Row="2"
+                                 Content="{Binding Path=Footer, Source={Reference Root}}"
+                                 IsVisible="{Binding Path=IsMenuExpanded, Source={Reference Root}}"
+                                 Padding="0">
+                    </ContentView>
+                </Grid>
+            </Frame>
+            <Frame x:Name="PopupViewFrame"
+                   IsVisible="{Binding Path=ShowPopup, Source={Reference Root}}"
+                   Padding="0"
+                   CornerRadius="0"
+                   HasShadow="False">
+                <ContentView x:Name="PopupContent"
+                             Content="{Binding Path=SelectedPopupItem.PopupViewInstance, Source={Reference Root}}">
+                </ContentView>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

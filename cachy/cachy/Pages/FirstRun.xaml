@@ -1,0 +1,702 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:controls="clr-namespace:cachy.Controls"
+              xmlns:fonts="clr-namespace:cachy.Fonts"
+              xmlns:converters="clr-namespace:cachy.Converters"
+              xmlns:cloud="clr-namespace:devoctomy.cachy.Framework.Data.Cloud;assembly=devoctomy.cachy.Framework"
+              x:Class="cachy.Pages.FirstRun"
+              x:Name="Root"
+              CurrentPageChanged="Root_CurrentPageChanged"
+              BackgroundColor="{StaticResource BackgroundColour}">
+    <CarouselPage.Resources>
+        <ResourceDictionary>
+            <converters:BooleanInverterConverter x:Key="BooleanInverterConverter" />
+        </ResourceDictionary>
+    </CarouselPage.Resources>
+    <ContentPage x:Name="WelcomePage">
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical"
+                         Margin="0,8,0,0"
+                         HorizontalOptions="Center">
+                <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_PRINCIPAL_02}"
+                       FontSize="128"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       StyleClass="HeaderGlyphComment">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Welcome to cachy, The Cross-Platform Password Protection System."
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       HorizontalTextAlignment="Center"/>
+                <Label Text="It looks like this is the first time you have opened cachy on this device.  So before we get into the app, we would like to ask you a few questions to help get cachy setup just to way you like it.  Alternatively you can skip all of this by pressing the 'Skip' button below."
+                       HorizontalOptions="Center"
+                       StyleClass="Body"
+                       Margin="0,8,0,0"/>
+                <Label Text="Swipe left to continue..."
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       Margin="0,8,0,0"/>
+                <Label Text="or"
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeaderComment"/>
+                <Button x:Name="WelcomeSkipButton"
+                        Text="Skip"
+                        StyleClass="Warning"
+                        HeightRequest="48"
+                        Clicked="WelcomeSkipButton_Clicked"></Button>
+            </StackLayout>
+        </Grid>
+    </ContentPage>
+    <ContentPage x:Name="PasswordDerivationPage">
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical"
+                         Margin="0,8,0,0"
+                         HorizontalOptions="Center">
+                <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_PASSWORD_03_WF}"
+                       FontSize="128"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       StyleClass="HeaderGlyphComment">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Password Derivation Function"
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       HorizontalTextAlignment="Center"/>
+                <Label Text="cachy has a choice of password derivation functions.  These can be configured in more detail from within cachy's settings.  If you don't understand what this is, just go for the recommended option below."
+                       HorizontalOptions="Center"
+                       StyleClass="Body"
+                       Margin="0,8,0,0"/>
+                <controls:GlyphButton Text="SCrypt, slower, more-secure (recommended)"
+                                      Mode="TextOnly"
+                                      WidthRequest="128"
+                                      HeightRequest="128"
+                                      IsToggleButton="True"
+                                      ToggleGroup="firstrunpasswordderivationfunction"
+                                      BackgroundColor="DarkGray"
+                                      BackgroundColourToggledOn="Green"
+                                      EnabledGlyphColour="White"
+                                      DisabledGlyphColour="DarkGray"
+                                      EnabledLabelColour="White"
+                                      DisabledLabelColour="DarkGray"
+                                      IsPressed="{Binding Path=SCryptEnabled, Mode=TwoWay, Source={x:Reference Root}}">
+                </controls:GlyphButton>
+                <controls:GlyphButton Text="PBKDF2, faster, less-secure"
+                                      Mode="TextOnly"
+                                      WidthRequest="128"
+                                      HeightRequest="128"
+                                      IsToggleButton="True"
+                                      ToggleGroup="firstrunpasswordderivationfunction"
+                                      BackgroundColor="DarkGray"
+                                      BackgroundColourToggledOn="Green"
+                                      EnabledGlyphColour="White"
+                                      DisabledGlyphColour="DarkGray"
+                                      EnabledLabelColour="White"
+                                      DisabledLabelColour="DarkGray"
+                                      Margin="0,8,0,0"
+                                      IsPressed="{Binding Path=PBKDF2Enabled, Mode=TwoWay, Source={x:Reference Root}}">
+                </controls:GlyphButton>
+                <Label Text="Swipe left to continue..."
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       Margin="0,8,0,0"/>
+            </StackLayout>
+        </Grid>        
+    </ContentPage>
+    <ContentPage x:Name="ClipboardObfuscatorPage">
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical"
+                         Margin="0,8,0,0"
+                         HorizontalOptions="Center">
+                <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_PASTE}"
+                       FontSize="128"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       StyleClass="HeaderGlyphComment">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Clipboard Obfuscator"
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       HorizontalTextAlignment="Center"/>
+                <Label Text="cachy can help protect against certain malware attacks on your device that may monitor clipboard activity. When the clipboard obfuscator is enabled, random data will be copied into it at random times, helping to obscure your real credentials. If you don't understand what this is, just go for the recommended option below."
+                       HorizontalOptions="Center"
+                       StyleClass="Body"
+                       Margin="0,8,0,0"/>
+                <controls:GlyphButton Text="Enabled (recommended)"
+                                      Mode="TextOnly"
+                                      WidthRequest="128"
+                                      HeightRequest="128"
+                                      IsToggleButton="True"
+                                      ToggleGroup="firstrunclipboardobfuscator"
+                                      BackgroundColor="DarkGray"
+                                      BackgroundColourToggledOn="Green"
+                                      EnabledGlyphColour="White"
+                                      DisabledGlyphColour="DarkGray"
+                                      EnabledLabelColour="White"
+                                      DisabledLabelColour="DarkGray"
+                                      IsPressed="{Binding Path=ClipboardObfuscatorEnabled, Mode=TwoWay, Source={x:Reference Root}}">
+                </controls:GlyphButton>
+                <controls:GlyphButton Text="Disabled"
+                                      Mode="TextOnly"
+                                      WidthRequest="128"
+                                      HeightRequest="128"
+                                      IsToggleButton="True"
+                                      ToggleGroup="firstrunclipboardobfuscator"
+                                      BackgroundColor="DarkGray"
+                                      BackgroundColourToggledOn="Green"
+                                      EnabledGlyphColour="White"
+                                      DisabledGlyphColour="DarkGray"
+                                      EnabledLabelColour="White"
+                                      DisabledLabelColour="DarkGray"
+                                      Margin="0,8,0,0"
+                                      IsPressed="{Binding Path=ClipboardObfuscatorDisabled, Source={x:Reference Root}}">
+                </controls:GlyphButton>
+                <Label Text="Swipe left to continue..."
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       Margin="0,8,0,0"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage>
+    <ContentPage x:Name="AutoSavePage">
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical"
+                         Margin="0,8,0,0"
+                         HorizontalOptions="Center">
+                <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_SAVE}"
+                       FontSize="128"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       StyleClass="HeaderGlyphComment">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Auto-Save"
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       HorizontalTextAlignment="Center"/>
+                <Label Text="cachy can automatically save changes made to your credential vault the moment they happen, alternatively you will have to lock and save your vault after every change you want to keep. If you don't understand what this is, just go for the recommended option below."
+                       HorizontalOptions="Center"
+                       StyleClass="Body"
+                       Margin="0,8,0,0"/>
+                <controls:GlyphButton Text="Enabled (recommended)"
+                                      Mode="TextOnly"
+                                      WidthRequest="128"
+                                      HeightRequest="128"
+                                      IsToggleButton="True"
+                                      ToggleGroup="firstrunautosave"
+                                      BackgroundColor="DarkGray"
+                                      BackgroundColourToggledOn="Green"
+                                      EnabledGlyphColour="White"
+                                      DisabledGlyphColour="DarkGray"
+                                      EnabledLabelColour="White"
+                                      DisabledLabelColour="DarkGray"
+                                      IsPressed="{Binding Path=AutoSaveEnabled, Mode=TwoWay, Source={x:Reference Root}}">
+                </controls:GlyphButton>
+                <controls:GlyphButton Text="Disabled"
+                                      Mode="TextOnly"
+                                      WidthRequest="128"
+                                      HeightRequest="128"
+                                      IsToggleButton="True"
+                                      ToggleGroup="firstrunautosave"
+                                      BackgroundColor="DarkGray"
+                                      BackgroundColourToggledOn="Green"
+                                      EnabledGlyphColour="White"
+                                      DisabledGlyphColour="DarkGray"
+                                      EnabledLabelColour="White"
+                                      DisabledLabelColour="DarkGray"
+                                      Margin="0,8,0,0"
+                                      IsPressed="{Binding Path=AutoSaveDisabled, Mode=TwoWay, Source={x:Reference Root}}">
+                </controls:GlyphButton>
+                <Label Text="Swipe left to continue..."
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       Margin="0,8,0,0"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage>
+    <ContentPage x:Name="CreateFirstVaultStartPage">
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical"
+                         Margin="0,8,0,0"
+                         HorizontalOptions="Center">
+                <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_LOCKER}"
+                       FontSize="128"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       StyleClass="HeaderGlyphComment">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Create your first cachy Vault."
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       HorizontalTextAlignment="Center"/>
+                <Label Text="If you would like to be guided with the creation of your first cachy vault, continue. Otherwise press 'I'm done!' below to get into cachy where you can continue setting up your device manually."
+                       HorizontalOptions="Center"
+                       StyleClass="Body"
+                       Margin="0,8,0,0"/>
+                <Label Text="Swipe left to continue..."
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       Margin="0,8,0,0"/>
+                <Label Text="or"
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeaderComment"/>
+                <Button x:Name="CreateFirstVaultSkipButton"
+                        Text="I'm done!"
+                        StyleClass="Success"
+                        HeightRequest="48"
+                        Clicked="CreateFirstVaultSkipButton_Clicked"></Button>
+            </StackLayout>
+        </Grid>
+    </ContentPage>
+    <ContentPage x:Name="SyncModePage">
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical"
+                         Margin="0,8,0,0"
+                         HorizontalOptions="Center">
+                <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_SYNCHRONIZE}"
+                       FontSize="128"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       StyleClass="HeaderGlyphComment">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Vault Synchronisation"
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       HorizontalTextAlignment="Center"/>
+                <Label Text="If you would like to use your vault on this device only, select 'Local Only' below, otherwise, select 'Cloud' to enable synchronisation across multiple devices using Dropbox, OneDrive or Amazon S3."
+                       HorizontalOptions="Center"
+                       StyleClass="Body"
+                       Margin="0,8,0,0"/>
+                <controls:GlyphButton x:Name="LocalSyncModeButton"
+                                      Text="Local Only"
+                                      Mode="TextOnly"
+                                      BackgroundColor="{StaticResource Accent}"
+                                      EnabledGlyphColour="White"
+                                      WidthRequest="128"
+                                      HeightRequest="128"
+                                      EnabledLabelColour="White"
+                                      Clicked="LocalSyncModeButton_Clicked">
+                </controls:GlyphButton>
+                <controls:GlyphButton x:Name="CloudSyncModeButton"
+                                      Text="Cloud"
+                                      Mode="TextOnly"
+                                      BackgroundColor="{StaticResource Accent}"
+                                      EnabledGlyphColour="White"
+                                      WidthRequest="128"
+                                      HeightRequest="128"
+                                      Margin="0,8,0,0"
+                                      EnabledLabelColour="White"
+                                      Clicked="CloudSyncModeButton_Clicked">
+                </controls:GlyphButton>
+            </StackLayout>
+        </Grid>
+    </ContentPage>
+    <ContentPage x:Name="CloudProviderPage">
+        <Grid>
+            <Grid HorizontalOptions="Center"
+                  VerticalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackLayout Orientation="Vertical"
+                         Margin="0,8,0,0"
+                         HorizontalOptions="Center">
+                    <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_CLOUD_RECYCLE}"
+                       FontSize="128"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       StyleClass="HeaderGlyphComment">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                        </Label.FontFamily>
+                    </Label>
+                    <Label Text="Cloud Provider"
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       HorizontalTextAlignment="Center"/>
+                    <Label Text="Before you can create a cloud-synchronised vault with cachy, you must have an account with one of the following providers. After creating an account on their respective websites, select the provider you would like to use."
+                           HorizontalOptions="Center"
+                           StyleClass="Body"
+                           Margin="0,8,0,0"
+                           IsVisible="{Binding Path=IsAuthenticated, Converter={StaticResource BooleanInverterConverter}, Source={x:Reference Root}}"/>
+                    <controls:SupportedCloudProvidersList x:Name="CloudProviderList"
+                                                          WidthRequest="300"
+                                                          HeightRequest="400"
+                                                          BackgroundColor="{Binding Path=BackgroundColor, Source={x:Reference Root}}"
+                                                          VerticalScrollBarVisibility="Never"
+                                                          SelectedProviderType="{Binding Path=CloudStorageProviderType, Source={x:Reference Root}, Mode=TwoWay}"
+                                                          IsVisible="{Binding Path=IsAuthenticated, Converter={StaticResource BooleanInverterConverter}, Source={x:Reference Root}}">
+                    </controls:SupportedCloudProvidersList>
+                    <Frame BorderColor="{StaticResource ItemBorderColour}"
+                           BackgroundColor="{StaticResource BackgroundColour}"
+                           IsVisible="{Binding Path=IsAuthenticated, Source={x:Reference Root}}"
+                           Grid.Row="1"
+                           Margin="8">
+                        <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center">
+                            <controls:LabelEx Text="{Binding Path=LoginMessage, Source={x:Reference Root}}"
+                                      FontAttributes="Bold"
+                                      HorizontalTextAlignment="Center">
+                            </controls:LabelEx>
+                            <Grid Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="64"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="64"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="32"></RowDefinition>
+                                    <RowDefinition Height="32"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Text="{Binding Path=CloudStorageProviderType.GlyphText, Source={x:Reference Root}}"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       StyleClass="LargeHeaderGlyph"
+                                       Grid.RowSpan="2"
+                                       TextColor="{StaticResource Accent}">
+                                    <Label.FontFamily>
+                                        <OnPlatform x:TypeArguments="x:String"
+                                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs" 
+                                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                    </Label.FontFamily>
+                                </Label>
+                                <Label Grid.Column="1"
+                                       Text="{Binding Path=CloudStorageAccountUser.Name, Source={x:Reference Root}}"
+                                       VerticalTextAlignment="Center"
+                                       StyleClass="SubHeader"
+                                       TextColor="{StaticResource TextColour}"
+                                       LineBreakMode="TailTruncation"
+                                       Margin="8,0,0,0">
+                                </Label>
+                                <Label Grid.Row="1"
+                                       Grid.Column="1"
+                                       TextColor="{StaticResource TextColour}"
+                                       Text="{Binding Path=CloudStorageAccountUser.Email, Source={x:Reference Root}}"
+                                       LineBreakMode="TailTruncation"
+                                       Margin="8,0,0,0">
+                                </Label>
+                                <controls:GlyphButton Grid.Column="2"
+                                                      Grid.RowSpan="2"
+                                                      Mode="GlyphOnly"
+                                                      Glyph="Circle_Remove_01"
+                                                      Command="{Binding Path=ProviderLogout, Source={x:Reference Root}}"
+                                                      HorizontalOptions="Center"
+                                                      VerticalOptions="Center">
+                                </controls:GlyphButton>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>
+                    <Label Text="Swipe left to continue..."
+                           HorizontalOptions="Center"
+                           StyleClass="SubHeader"
+                           Margin="0,8,0,0"
+                           IsVisible="{Binding Path=IsAuthenticated, Source={x:Reference Root}}"/>
+                </StackLayout>
+            </Grid>
+            <Grid BackgroundColor="{Binding Path=BackgroundColor, Source={x:Reference Root}}"
+                  IsVisible="{Binding Path=IsConnecting, Source={x:Reference Root}}">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center"
+                             Margin="8">
+                    <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_EARTH_NODE}"
+                           FontSize="74"
+                           HorizontalOptions="Center"
+                           StyleClass="HeaderGlyphComment">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                        </Label.FontFamily>
+                    </Label>
+                    <Label StyleClass="HeaderGlyphComment"
+                           Text="Connecting to cloud provider, please wait..."
+                           HorizontalTextAlignment="Center">
+                    </Label>
+                </StackLayout>
+            </Grid>
+            <WebView x:Name="OAuthWebView"
+                     IsVisible="False"></WebView>
+            <Grid x:Name="AmazonCredInput"
+                  BackgroundColor="{Binding Path=BackgroundColor, Source={x:Reference Root}}"
+                  IsVisible="False">
+                <Grid HorizontalOptions="Center"
+                      VerticalOptions="Center">
+                    <StackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 Orientation="Vertical"
+                                 Margin="8"
+                                 WidthRequest="350">
+                        <controls:LabelEx Text="Access ID"
+                                      HorizontalOptions="Start"
+                                      StyleClass="SubHeader"
+                                      FontAttributes="Bold"
+                                      EnabledTextColour="{StaticResource Accent}">
+                        </controls:LabelEx>
+                        <Entry Keyboard="Default"
+                           Placeholder="Enter Access ID here..."
+                           Text="{Binding Path=AccessID, Mode=TwoWay, Source={x:Reference Root}}">
+                        </Entry>
+
+                        <controls:LabelEx Text="Secret Key"
+                                      HorizontalOptions="Start"
+                                      StyleClass="SubHeader"
+                                      FontAttributes="Bold"                                           
+                                      EnabledTextColour="{StaticResource Accent}">
+                        </controls:LabelEx>
+                        <Entry Keyboard="Default"
+                           Placeholder="Enter Secret Key here..."
+                           Text="{Binding Path=SecretKey, Mode=TwoWay, Source={x:Reference Root}}">
+                        </Entry>
+
+                        <controls:LabelEx Text="Region"
+                                      HorizontalOptions="Start"
+                                      StyleClass="SubHeader"
+                                      FontAttributes="Bold"
+                                      EnabledTextColour="{StaticResource Accent}">
+                        </controls:LabelEx>
+                        <Picker ItemsSource="{x:Static cloud:AmazonS3Regions.AllRegions}"
+                            SelectedItem="{Binding Path=Region, Mode=TwoWay, Source={x:Reference Root}}">
+                        </Picker>
+
+                        <controls:LabelEx Text="Bucket Name"
+                                      HorizontalOptions="Start"
+                                      StyleClass="SubHeader"
+                                      FontAttributes="Bold"
+                                      EnabledTextColour="{StaticResource Accent}">
+                        </controls:LabelEx>
+                        <Entry Keyboard="Default"
+                           Placeholder="Enter bucket name here..."
+                           Text="{Binding Path=BucketName, Mode=TwoWay, Source={x:Reference Root}}">
+                        </Entry>
+
+                        <controls:LabelEx Text="Path"
+                                      HorizontalOptions="Start"
+                                      StyleClass="SubHeader"
+                                      FontAttributes="Bold"
+                                      EnabledTextColour="{StaticResource Accent}">
+                        </controls:LabelEx>
+                        <Entry Keyboard="Default"
+                           Placeholder="Enter path here..."
+                           Text="{Binding Path=Path, Mode=TwoWay, Source={x:Reference Root}}">
+                        </Entry>
+                        <Button x:Name="AcceptAmazonCredsButton"
+                        Text="OK"
+                        StyleClass="Success"
+                        HeightRequest="48"
+                        IsEnabled="{Binding Path=AmazonCredsAreSet, Source={x:Reference Root}}"
+                        Clicked="AcceptAmazonCredsButton_Clicked"></Button>
+                    </StackLayout>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentPage>
+    <ContentPage x:Name="NameDescriptionPage">
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical"
+                         Margin="0,8,0,0"
+                         HorizontalOptions="Center">
+                <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_TEXT_HIGHLIGHT_COLOUR}"
+                       FontSize="128"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       StyleClass="HeaderGlyphComment">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Vault Details"
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       HorizontalTextAlignment="Center"/>
+                <Label Text="For your own reference, give your vault a meaningful name.  You can also provide a description to provide more detailed information on your vault (recommended)."
+                       HorizontalOptions="Center"
+                       StyleClass="Body"
+                       Margin="0,8,0,0"/>
+                <controls:LabelEx Text="Name (Required)"
+                                  HorizontalOptions="Center"
+                                  StyleClass="SubHeader"
+                                  FontAttributes="Bold"
+                                  EnabledTextColour="{StaticResource Accent}"
+                                  Margin="0,8,0,0">
+                </controls:LabelEx>
+                <Entry Grid.Column="1"
+                       Keyboard="Default"
+                       Placeholder="Enter name here..."
+                       Text="{Binding Path=VaultName, Mode=TwoWay, Source={x:Reference Root}}"
+                       Margin="8,0,0,0">
+                </Entry>
+                <controls:LabelEx Text="Description (Optional)"
+                                  HorizontalOptions="Center"
+                                  StyleClass="SubHeader"
+                                  FontAttributes="Bold"
+                                  EnabledTextColour="{StaticResource Accent}"
+                                  Margin="0,8,0,0">
+                </controls:LabelEx>
+                <Entry Grid.Column="1"
+                       Keyboard="Default"
+                       Placeholder="Enter description here..."
+                       Text="{Binding Path=VaultDescription, Mode=TwoWay, Source={x:Reference Root}}"
+                       Margin="8,0,0,0">
+                </Entry>
+                <Label Text="Swipe left to continue..."
+                           HorizontalOptions="Center"
+                           StyleClass="SubHeader"
+                           Margin="0,8,0,0"
+                           IsVisible="{Binding Path=VaultNameIsSet, Source={x:Reference Root}}"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage>
+    <ContentPage x:Name="MasterPassphrasePage">
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical"
+                         Margin="0,8,0,0"
+                         HorizontalOptions="Center">
+                <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_LOCK}"
+                       FontSize="128"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       StyleClass="HeaderGlyphComment">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Master Passphrase"
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       HorizontalTextAlignment="Center"/>
+                <Label Text="This is essentially the most important link in the security of your cachy vault, which is why we recommend creating a relatively long and complex passphrase, not a password, but of course the choice is yours and it is merely a recommendation.  We also recommend using a 'positive affirmation', as you may need to enter it several times a day.  Choose wisely, as if you forget it, your vault will be gone for good."
+                       HorizontalOptions="Center"
+                       StyleClass="Body"
+                       Margin="0,8,0,0"/>
+                <Button x:Name="PositiveAffirmationsButton"
+                        Text="More on 'positive affirmations'..."
+                        StyleClass="Success"
+                        HeightRequest="48"
+                        FontSize="12"
+                        Clicked="PositiveAffirmationsButton_Clicked"
+                        Margin="0,8,0,0"></Button>
+                <controls:LabelEx Text="Master Passphrase (Required)"
+                                  HorizontalOptions="Center"
+                                  StyleClass="SubHeader"
+                                  FontAttributes="Bold"
+                                  EnabledTextColour="{StaticResource Accent}"
+                                  Margin="0,8,0,0">
+                </controls:LabelEx>
+                <controls:PasswordEntryView AllowShowPassword="true"
+                                            IsPassword="{Binding Path=ShowMasterPassphrase, Mode=TwoWay, Converter={StaticResource BooleanInverterConverter}}"
+                                            Placeholder="Enter master passphrase here..."
+                                            Text="{Binding Path=MasterPassphrase, Mode=TwoWay, Source={x:Reference Root}}"
+                                            Margin="0,0,0,0"></controls:PasswordEntryView>
+                <Label Text="Swipe left to continue..."
+                           HorizontalOptions="Center"
+                           StyleClass="SubHeader"
+                           Margin="0,8,0,0"
+                           IsVisible="{Binding Path=MasterPassphraseIsSet, Source={x:Reference Root}}"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage>
+    <ContentPage x:Name="FinishPage">
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical"
+                         Margin="0,8,0,0"
+                         HorizontalOptions="Center">
+                <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_CHECK}"
+                       FontSize="128"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       StyleClass="HeaderGlyphComment">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="And that's it!."
+                       HorizontalOptions="Center"
+                       StyleClass="SubHeader"
+                       HorizontalTextAlignment="Center"/>
+                <Label Text="Congratulations, we now have enough information to get you setup with cachy, and your first vault, just tap the 'Finish Setup' button below so that we can complete the process."
+                       HorizontalOptions="Center"
+                       StyleClass="Body"
+                       Margin="0,8,0,0"/>
+                <Button x:Name="FinishButton"
+                        Text="Finish Setup"
+                        StyleClass="Success"
+                        HeightRequest="48"
+                        Margin="0,8,0,0"
+                        Clicked="FinishButton_Clicked"></Button>
+            </StackLayout>
+        </Grid>
+    </ContentPage>
+</CarouselPage>

@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:fonts="clr-namespace:cachy.Fonts"
+             x:Class="cachy.Controls.Tag"
+             x:Name="Root">
+  <ContentView.Content>
+        <Frame Padding="0"
+               BackgroundColor="{Binding Path=TagBackColour, Source={Reference Root}}"
+               CornerRadius="{Binding Path=CornerRadius, Source={Reference Root}}"
+               HasShadow="{Binding Path=HasShadow, Source={Reference Root}}"
+               BorderColor="{Binding Path=TagBorderColour, Source={Reference Root}}">
+            <Grid ColumnSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="32"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="{Binding Path=DeleteColumnWidth, Source={Reference Root}}"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_TAG_01}"
+                       FontSize="20"
+                       HorizontalOptions="Center"
+                       TextColor="{Binding Path=TagTextColour, Source={Reference Root}}"
+                       VerticalOptions="Center">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                    </Label.FontFamily>
+                </Label>
+                <Entry Grid.Column="1"
+                       x:Name="TagEntry"
+                       IsVisible="{Binding Path=ShowEdit, Source={Reference Root}}"
+                       Text="{Binding Path=Value, Source={Reference Root}, Mode=TwoWay}"
+                       Completed="TagEntry_Completed"
+                       Unfocused="TagEntry_Unfocused"
+                       FontSize="13"
+                       VerticalOptions="Center"></Entry>
+                <Label Grid.Column="1"
+                       IsVisible="{Binding Path=ShowLabel, Source={Reference Root}}"
+                       Text="{Binding Path=Value, Source={Reference Root}}"
+                       VerticalTextAlignment="Center"
+                       VerticalOptions="Fill"
+                       Margin="8,0,0,0"
+                       TextColor="{Binding Path=TagTextColour, Source={Reference Root}}"
+                       LineBreakMode="TailTruncation"></Label>
+                <Button Grid.Column="1"
+                        x:Name="TagEditButton"
+                        IsVisible="{Binding Path=ShowLabel, Source={Reference Root}}"
+                        CornerRadius="{Binding Path=CornerRadius, Source={Reference Root}}"
+                        Clicked="TagEditButton_Clicked">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="BorderWidth" Value="0"/>
+                            <Setter Property="BackgroundColor" Value="Transparent"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <controls:GlyphButton x:Name="DeleteButton"
+                                      Grid.Column="2"
+                                      Glyph="Recycle_Bin"
+                                      Mode="GlyphOnly"
+                                      GlyphFontSize="20"
+                                      EnabledGlyphColour="{Binding Path=TagTextColour, Source={Reference Root}}"
+                                      CornerRadius="{Binding Path=CornerRadius, Source={Reference Root}}"
+                                      Command="{Binding Path=DeleteCommand, Source={Reference Root}}">
+                </controls:GlyphButton>
+            </Grid>
+        </Frame>
+  </ContentView.Content>
+</ContentView>

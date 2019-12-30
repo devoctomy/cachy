@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:tv="clr-namespace:cachy.Controls.TreeView"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:behaviors="clr-namespace:cachy.Behaviors"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             xmlns:fonts="clr-namespace:cachy.Fonts"
+             x:Class="cachy.Views.CloudProviderFileSelectView"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
+            <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="150"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Select File From Cloud"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding BackCommand}">
+                </controls:GlyphButton>
+                <controls:GlyphButton Grid.Column="2"
+                                      Glyph="Check" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding AcceptCommand}"
+                                      IsEnabled="{Binding FileIsSelected}">
+                </controls:GlyphButton>
+            </Grid>
+            <tv:TreeView Grid.Row="1"
+                         Grid.RowSpan="2"
+                         Nodes="{Binding Path=Nodes}"
+                         VerticalOptions="Start"
+                         Margin="8">
+                <tv:TreeView.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="SelectedNodeChanged" 
+                                                      Command="{Binding SelectedFileCommand}" 
+                                                      Converter="{StaticResource SelectedItemConverter}"/>
+                </tv:TreeView.Behaviors>
+            </tv:TreeView>
+            <Grid Grid.Row="1"
+                  Grid.RowSpan="2"
+                  BackgroundColor="{StaticResource BackgroundColour}"
+                  IsVisible="{Binding Path=IsEmpty}">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center"
+                             Margin="8">
+                    <Label Text="{Static fonts:CachyFont.CACHYFONT_GLYPH_CLOUD}"
+                           FontSize="96"
+                           HorizontalOptions="Center"
+                           StyleClass="HeaderGlyphComment">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                        </Label.FontFamily>
+                    </Label>
+                    <Label StyleClass="HeaderGlyphComment"
+                           Text="No files found on cloud provider."
+                           HorizontalTextAlignment="Center">
+                    </Label>
+                </StackLayout>
+            </Grid>            
+            <Frame BorderColor="{StaticResource ItemBorderColour}"
+                   IsVisible="{Binding Path=FileIsSelected}"
+                   Grid.Row="2"
+                   Margin="8">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center">
+                    <controls:LabelEx Text="You have selected the following file,"
+                                      FontAttributes="Bold"
+                                      HorizontalTextAlignment="Center">
+                    </controls:LabelEx>
+                    <Grid Margin="0,8,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"></ColumnDefinition>
+                            <ColumnDefinition Width="115"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_LOCKER}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               StyleClass="LargeHeaderGlyph"
+                               Grid.RowSpan="2"
+                               TextColor="{StaticResource Accent}">
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String"
+                                            Android="Fonts/cachyglyphs.ttf#cachyglyphs" 
+                                            WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                            </Label.FontFamily>
+                        </Label>
+                        <controls:LabelEx Grid.Column="1"
+                                          Text="Name:"
+                                          FontAttributes="Bold">
+                        </controls:LabelEx>
+                        <controls:LabelEx Grid.Column="2"
+                                          Text="{Binding Path=SelectedFile.Name}"
+                                          VerticalTextAlignment="Center"
+                                          LineBreakMode="TailTruncation">
+                        </controls:LabelEx>
+                        <controls:LabelEx Grid.Row="1"
+                                          Grid.Column="1"
+                                          Text="Last Modified:"
+                                          FontAttributes="Bold">
+                        </controls:LabelEx>
+                        <controls:LabelEx Grid.Row="1"
+                                          Grid.Column="2"
+                                          Text="{Binding Path=SelectedFile.LastModified, Converter={StaticResource DateTimeToStringConverter}}"
+                                          VerticalTextAlignment="Center"
+                                          LineBreakMode="TailTruncation">
+                        </controls:LabelEx>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

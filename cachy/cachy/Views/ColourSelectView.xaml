@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:behaviors="clr-namespace:cachy.Behaviors"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             x:Class="cachy.Views.ColourSelectView"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemEventArgsToSelectedItemConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="64"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Select Colour"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding BackCommand}">
+                </controls:GlyphButton>
+                <controls:GlyphButton Grid.Column="2"
+                                      Glyph="Check" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding AcceptCommand}">
+                </controls:GlyphButton>
+            </Grid>
+            <controls:GlyphButton Grid.Row="1"
+                                  BackgroundColor="{Binding Path=SelectedColourPickerItem.Colour}"
+                                  HorizontalOptions="Fill"
+                                  VerticalOptions="Fill">
+            </controls:GlyphButton>
+            <controls:ColourPicker x:Name="Picker"
+                                   Grid.Row="2">
+                <controls:ColourPicker.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="SelectedItemChanged" 
+                                                      Command="{Binding ColourSelectedCommand}"
+                                                      Converter="{StaticResource SelectedItemEventArgsToSelectedItemConverter}"/>
+                </controls:ColourPicker.Behaviors>
+            </controls:ColourPicker>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

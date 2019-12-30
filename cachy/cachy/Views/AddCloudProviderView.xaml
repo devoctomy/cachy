@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:fonts="clr-namespace:cachy.Fonts"
+             xmlns:behaviors="clr-namespace:cachy.Behaviors"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             x:Class="cachy.Views.AddCloudProviderView"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:StringComparisonConverter x:Key="StringComparisonConverter" />
+            <converters:BooleanInverterConverter x:Key="BooleanInverterConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="170"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Add Cloud Provider"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding BackCommand}">
+                </controls:GlyphButton>
+                <controls:GlyphButton Grid.Column="2"
+                                      Glyph="Check" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding AcceptCommand}"
+                                      IsEnabled="{Binding IsAuthenticated}">
+                </controls:GlyphButton>
+            </Grid>
+            <controls:SupportedCloudProvidersList x:Name="SupportedProvidersList"
+                                                  SelectedProviderType="{Binding Path=CloudStorageProviderType, Mode=OneWayToSource}"
+                                                  IsVisible="{Binding Path=IsAuthenticated, Converter={StaticResource BooleanInverterConverter}}"
+                                                  Grid.Row="1"
+                                                  Margin="8"
+                                                  Grid.RowSpan="2">
+            </controls:SupportedCloudProvidersList>
+            <Frame BorderColor="{StaticResource ItemBorderColour}"
+                   IsVisible="{Binding Path=IsAuthenticated}"
+                   Grid.Row="1"
+                   Margin="8">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center">
+                    <controls:LabelEx Text="{Binding Path=LoginMessage}"
+                                      FontAttributes="Bold"
+                                      HorizontalTextAlignment="Center">
+                    </controls:LabelEx>
+                    <Grid Margin="0,8,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="64"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="64"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="32"></RowDefinition>
+                            <RowDefinition Height="32"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Text="{Binding Path=CloudStorageProviderType.GlyphText}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           StyleClass="LargeHeaderGlyph"
+                           Grid.RowSpan="2"
+                           TextColor="{StaticResource Accent}">
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String"
+                                        Android="Fonts/cachyglyphs.ttf#cachyglyphs" 
+                                        WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                            </Label.FontFamily>
+                        </Label>
+                        <Label Grid.Column="1"
+                               Text="{Binding Path=CloudStorageAccountUser.Name}"
+                               VerticalTextAlignment="Center"
+                               StyleClass="SubHeader"
+                               Margin="8,0,0,0">
+                        </Label>
+                        <Label Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding Path=CloudStorageAccountUser.Email}"
+                               Margin="8,0,0,0">
+                        </Label>
+                        <controls:GlyphButton Grid.Column="2"
+                                          Grid.RowSpan="2"
+                                          Mode="GlyphOnly"
+                                          Glyph="Circle_Remove_01"
+                                          Command="{Binding Path=ProviderLogout}"
+                                          HorizontalOptions="Center"
+                                          VerticalOptions="Center">
+                        </controls:GlyphButton>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            <Grid Grid.Row="1"
+                  Grid.RowSpan="2"
+                  BackgroundColor="{StaticResource BackgroundColour}"
+                  IsVisible="{Binding Path=IsConnecting}">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center"
+                             Margin="8">
+                    <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_EARTH_NODE}"
+                           FontSize="74"
+                           HorizontalOptions="Center"
+                           StyleClass="HeaderGlyphComment">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                        </Label.FontFamily>
+                    </Label>
+                    <Label StyleClass="HeaderGlyphComment"
+                           Text="Connecting to cloud provider, please wait..."
+                           HorizontalTextAlignment="Center">
+                    </Label>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

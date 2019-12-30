@@ -1,0 +1,14 @@
+{
+  "Paths": {
+    "Output": "{AppData}/Log"
+  },
+  "Default": {
+    "Name": "{AppName}",
+    "Enabled":  true,
+    "AllowedMessageTypes": "information,success,fail,warning,error,exception,timing,verboselow,verbosemed,verbosehigh,naked"
+  },
+  "MessageTemplate" : {
+    "IsUTC" : "false",
+    "Text" : "{Date} {Time} :: [{MessageType}] - {PlainMessage}{NewLine}"
+  }
+}

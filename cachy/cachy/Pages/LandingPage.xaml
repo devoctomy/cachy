@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:controls="clr-namespace:cachy.Controls"
+              x:Class="cachy.Pages.LandingPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid Margin="8">
+                <StackLayout VerticalOptions="Center">
+                    <controls:Icon ResourceId="cachy.Assets.Images.cachyicon_centred.svg"
+                               WidthRequest="256"
+                               HeightRequest="256"/>
+                    <Label Margin="0,8,0,0"
+                           StyleClass="Header"
+                           Text="Tap to begin..."
+                           TextColor="{StaticResource Accent}"
+                           HorizontalTextAlignment="Center"></Label>
+                </StackLayout>
+            </Grid>
+            <Button x:Name="LogoButton" 
+                    BackgroundColor="Transparent"
+                    Clicked="LogoButton_Clicked"></Button>
+            <Button x:Name="StartupProblemsButton"
+                    StyleClass="Warning"
+                    Text="If you have problems starting cachy, tap here."
+                    FontSize="16"
+                    FontAttributes="Italic,Bold"
+                    VerticalOptions="End"
+                    CornerRadius="8"
+                    Margin="8"
+                    Opacity="0.75"
+                    Clicked="StartupProblemsButton_Clicked">
+            </Button>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

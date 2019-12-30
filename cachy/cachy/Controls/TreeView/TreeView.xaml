@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Controls.TreeView.TreeView"
+             x:Name="Root">
+  <ContentView.Content>
+        <ScrollView VerticalScrollBarVisibility="Default"
+                    HorizontalScrollBarVisibility="Never">
+            <StackLayout x:Name="LayoutRoot"
+                     Orientation="Vertical"
+                     Spacing="1">
+            </StackLayout>
+        </ScrollView>
+  </ContentView.Content>
+</ContentView>

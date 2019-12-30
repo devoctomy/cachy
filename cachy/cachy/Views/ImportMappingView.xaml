@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:behaviors="clr-namespace:cachy.Behaviors"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             xmlns:fonts="clr-namespace:cachy.Fonts"
+             x:Class="cachy.Views.ImportMappingView"
+             BackgroundColor="{StaticResource BackgroundColour}"            
+             x:Name="Root">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemEventArgsToSelectedItemConverter" />
+            <converters:BooleanToResourceColourConverter x:Key="BooleanToResourceColourConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Import Mapping"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding BackCommand}">
+                </controls:GlyphButton>
+                <controls:GlyphButton Grid.Column="2"
+                                      Glyph="Check" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding AcceptCommand}"
+                                      IsEnabled="{Binding MappingsConfigured}">
+                </controls:GlyphButton>
+            </Grid>
+            <Grid Grid.Row="1"
+                  Margin="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="96"></RowDefinition>
+                    <RowDefinition Height="190"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Text="Before you can import your CSV, you must configure how you would like the fields mapped into cachy."
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       StyleClass="SubHeader">
+                </Label>
+                <StackLayout Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="CSV Record Field"
+                               VerticalTextAlignment="Center"
+                               StyleClass="SubHeader"></Label>
+                        <Picker Grid.Column="1" 
+                                ItemsSource="{Binding ImportHeaders}"
+                                SelectedItem="{Binding SelectedHeader}"></Picker>
+                    </Grid>
+                    <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_EXPANDER_DOWN_01}" 
+                           FontSize="24"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Accent}">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String"
+                                        Android="Fonts/cachyglyphs.ttf#cachyglyphs" 
+                                        WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                        </Label.FontFamily>
+                    </Label>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="cachy Credential Field"
+                               VerticalTextAlignment="Center"
+                               StyleClass="SubHeader"></Label>
+                        <Picker Grid.Column="1" 
+                                ItemsSource="{Binding StandardFields}"
+                                SelectedItem="{Binding SelectedField, Mode=TwoWay}"></Picker>
+                    </Grid>
+                    <controls:GlyphButton Glyph="Circle_Add_03"
+                                          Text="Add Mapping"
+                                          Mode="GlyphAndTextLeftRight"
+                                          HeightRequest="64"
+                                          BackgroundColor="{StaticResource AltGlyphButtonBackgroundColour}"
+                                          IconMargin="16,0,0,0"
+                                          Margin="0,8,0,0"
+                                          Command="{Binding Path=AddMappingCommand}"
+                                          IsEnabled="{Binding Path=CanAddMapping}">
+                    </controls:GlyphButton>
+                </StackLayout>
+                <controls:ListViewEx x:Name="MappingList"
+                                 HasUnevenRows="True"
+                                 ItemsSource="{Binding Path=Mappings}"
+                                 TagEx="{Binding Path=BindingContext, Source={x:Reference Root}}"
+                                 Grid.Row="2"
+                                 HorizontalOptions="Fill"
+                                 VerticalOptions="Fill"
+                                 Margin="8">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame BackgroundColor="{StaticResource BackgroundColour}"
+                                   CornerRadius="0"
+                                   Padding="0">
+                                    <controls:BorderView Margin="8" 
+                                                     BorderColour="{Binding Path=IsSelected, Converter={StaticResource BooleanToResourceColourConverter}, ConverterParameter='Accent,ItemBorderColour'}"
+                                                     BorderThickness="2">
+                                        <controls:BorderView.InternalContent>
+                                            <StackLayout Orientation="Vertical">
+                                                <Grid RowSpacing="0"
+                                                  ColumnSpacing="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="64"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="64"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="32"></RowDefinition>
+                                                        <RowDefinition Height="32"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <controls:LabelEx Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_TEXT_HIGHLIGHT_COLOUR}"
+                                                                  HorizontalOptions="Center"
+                                                                  VerticalOptions="Center"
+                                                                  FontSize="46"
+                                                                  Grid.RowSpan="2"
+                                                                  EnabledTextColour="{StaticResource Accent}">
+                                                        <Label.FontFamily>
+                                                            <OnPlatform x:TypeArguments="x:String"
+                                                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                                        </Label.FontFamily>
+                                                    </controls:LabelEx>
+                                                    <Label Grid.Column="1" 
+                                                       StyleClass="SubHeader"
+                                                       VerticalOptions="Center"
+                                                       Text="{Binding Path=AttributeName}"
+                                                       Margin="8,0,0,0"/>
+                                                    <Label Grid.Row="1" 
+                                                       Grid.Column="1"
+                                                       Text="{Binding Path=ImportFieldName}"
+                                                       Margin="8,0,0,0"
+                                                       LineBreakMode="TailTruncation"/>
+                                                    <controls:GlyphButton Glyph="Circle_Remove_01"
+                                                                      Mode="GlyphOnly"
+                                                                      HorizontalOptions="Center"
+                                                                      VerticalOptions="Center"
+                                                                      Grid.Column="2"
+                                                                      Grid.RowSpan="2"                                                                      
+                                                                      Command="{Binding Path=TagEx.RemoveMappingCommand, Source={x:Reference Name=MappingList}}"
+                                                                      CommandParameter="{Binding Path=Me}">
+                                                    </controls:GlyphButton>
+                                                </Grid>
+                                            </StackLayout>
+                                        </controls:BorderView.InternalContent>
+                                    </controls:BorderView>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </controls:ListViewEx>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

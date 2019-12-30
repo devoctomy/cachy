@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="419.07883mm"
+   height="419.0788mm"
+   viewBox="0 0 419.07883 419.0788"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="cachyicon_centred.svg"
+   inkscape:export-filename="D:\Pictures\devoctomy\cachyicon.png"
+   inkscape:export-xdpi="4.3638568"
+   inkscape:export-ydpi="4.3638568">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.53339712"
+     inkscape:cx="461.14815"
+     inkscape:cy="602.08815"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer2"
+     showgrid="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="3440"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     showguides="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4518"
+       originx="206.7932"
+       originy="-1631.2331" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2"
+     style="display:inline;opacity:1"
+     transform="translate(-68.373498,1810.423)">
+    <g
+       id="g4547"
+       transform="matrix(0.94794341,0,0,0.94794341,14.467191,-83.336543)">
+      <path
+         id="path4826-9-0-3-1-3-5"
+         d="m 277.91265,-1810.423 -148.16667,61.3725 -61.372482,148.1671 61.372482,148.1667 148.16667,61.3725 148.16666,-61.3725 -74.08333,-74.0838 -74.08333,30.6865 -74.08334,-30.6865 -30.68597,-74.0829 30.68597,-74.0838 74.08334,-30.686 74.08333,30.686 74.08333,-74.0833 z"
+         style="display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path4826-9-0-3-1-3-5-4-3"
+         d="m 426.07932,-1749.0501 -74.08333,74.0833 v 0 l -74.08334,-30.6865 -74.08333,30.6865 -30.68598,74.0834 30.68598,74.0833 74.08333,30.6865 74.08334,-30.6865 74.08333,74.0828 61.37302,-148.1667 z m -148.16667,95.7822 37.04167,15.3428 15.34327,37.0422 -15.34327,37.0416 -37.04167,15.3428 -37.04167,-15.3428 -15.34324,-37.0416 15.34324,-37.0422 z"
+         style="display:inline;opacity:1;fill:#f7941c;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>

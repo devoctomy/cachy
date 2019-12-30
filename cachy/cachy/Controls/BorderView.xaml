@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Controls.BorderView"
+             x:Name="Root">
+    <ContentView.Content>
+        <Grid x:Name="LayoutGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftColumn" Width="{Binding LeftBorder, Source={x:Reference Root}}"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition x:Name="RightColumn" Width="{Binding RightBorder, Source={x:Reference Root}}"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="TopRow" Height="{Binding TopBorder, Source={x:Reference Root}}"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition x:Name="BottomRow" Height="{Binding BottomBorder, Source={x:Reference Root}}"></RowDefinition>
+            </Grid.RowDefinitions>
+            <BoxView x:Name="LeftColumnBorder" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding BorderColour, Source={x:Reference Root}}"/>
+            <BoxView x:Name="TopRowBorder" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BackgroundColor="{Binding BorderColour, Source={x:Reference Root}}"/>
+            <BoxView x:Name="RightColumnBorder" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" BackgroundColor="{Binding BorderColour, Source={x:Reference Root}}"/>
+            <BoxView x:Name="BottomRowBorder" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" BackgroundColor="{Binding BorderColour, Source={x:Reference Root}}"/>
+            <ContentView Grid.Column="1" Grid.Row="1" Content="{Binding InternalContent, Source={x:Reference Root}}"></ContentView>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

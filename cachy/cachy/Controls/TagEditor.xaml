@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Controls.TagEditor">
+    <ContentView.Content>
+        <AbsoluteLayout x:Name="TagLayout"
+                        SizeChanged="TagLayout_SizeChanged"
+                        ChildAdded="TagLayout_ChildAdded"
+                        Margin="4"
+                        VerticalOptions="Start"
+                        HorizontalOptions="FillAndExpand">
+        </AbsoluteLayout>
+    </ContentView.Content>
+</ContentView>

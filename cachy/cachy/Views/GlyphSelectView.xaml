@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Views.GlyphSelectView"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             x:Name="Root"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Select Icon"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding BackCommand}">
+                </controls:GlyphButton>
+                <controls:GlyphButton Grid.Column="2"
+                                      Glyph="Check" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding AcceptCommand}">
+                </controls:GlyphButton>
+            </Grid>
+            <ScrollView Grid.Row="1"
+                        VerticalScrollBarVisibility="Default"
+                        HorizontalScrollBarVisibility="Never">
+                <controls:ExtendedFlexLayout x:Name="GlyphLayout" 
+                                             ItemsSource="{Binding Items}"
+                                             Wrap="Wrap"
+                                             Direction="Row"
+                                             JustifyContent="Start">
+                    <controls:ExtendedFlexLayout.ItemTemplate>
+                        <DataTemplate>
+                            <controls:GlyphButton BackgroundColor="White"
+                                                  GlyphColourToggledOn="White"
+                                                  Mode="GlyphOnly"
+                                                  Glyph="{Binding Glyph}"
+                                                  WidthRequest="64"
+                                                  HeightRequest="64"
+                                                  IsToggleButton="True"
+                                                  IsPressed="{Binding Selected}"
+                                                  ToggleGroup="{Binding BindingContext.ToggleGroup, Source={x:Reference GlyphLayout}}"
+                                                  Command="{Binding BindingContext.GlyphSelectCommand, Source={x:Reference GlyphLayout}}"
+                                                  CommandParameter="{Binding}">
+                            </controls:GlyphButton>
+                        </DataTemplate>
+                    </controls:ExtendedFlexLayout.ItemTemplate>
+                </controls:ExtendedFlexLayout>
+            </ScrollView>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

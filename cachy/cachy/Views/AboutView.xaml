@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             x:Class="cachy.Views.AboutView">
+  <ContentView.Content>
+        <StackLayout Orientation="Vertical"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center">
+            <controls:Icon ResourceId="cachy.Assets.Images.cachyicon_centred.svg"
+                           WidthRequest="256"
+                           HeightRequest="256"/>
+            <Label Text="cachy" StyleClass="SubHeader" HorizontalTextAlignment="Center"></Label>
+            <Label Text="Cross-Platform Password Protection System" StyleClass="Comment" HorizontalTextAlignment="Center"></Label>
+            <BoxView WidthRequest="128" HeightRequest="1" BackgroundColor="Accent"></BoxView>
+            <Label Text="{Binding VersionText}" StyleClass="Body" HorizontalTextAlignment="Center"></Label>
+            <BoxView WidthRequest="128" HeightRequest="1" BackgroundColor="Accent"></BoxView>
+            <Label Text="Copyright © devoctomy 2018-2019" StyleClass="Body" HorizontalTextAlignment="Center"></Label>
+            <controls:GlyphButton Glyph="Help"
+                                  Text="devoctomy Help Center"
+                                  Command="{Binding HelpCenterCommand}"
+                                  Mode="GlyphAndTextLeftRight"
+                                  HeightRequest="64"
+                                  BackgroundColor="{StaticResource Accent}"
+                                  EnabledGlyphColour="{StaticResource AltTextColour}"
+                                  EnabledLabelColour="{StaticResource AltTextColour}"
+                                  IconMargin="16,0,0,0"
+                                  Margin="0,16,0,0">
+            </controls:GlyphButton>
+        </StackLayout>
+  </ContentView.Content>
+</views:PageNavigationAwareView>

@@ -1,0 +1,14 @@
+﻿<Application x:Class="cachy.UWP.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:cachy.UWP"
+             RequestedTheme="Light">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style TargetType="ToggleSwitch">
+                <Setter Property="OffContent" Value=" " />
+                <Setter Property="OnContent" Value=" " />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

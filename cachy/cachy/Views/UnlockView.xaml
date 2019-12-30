@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Views.UnlockView"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:BooleanInverterConverter x:Key="BooleanInverterConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Unlock Vault"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding BackCommand}">
+                </controls:GlyphButton>
+                <controls:GlyphButton x:Name="AcceptButton"
+                                      Grid.Column="3"
+                                      Glyph="Check" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding AcceptCommand}">
+                </controls:GlyphButton>
+            </Grid>
+            <StackLayout Grid.Row="1"
+                         VerticalOptions="Center"
+                         Margin="16">
+                <Label Text="Please enter the master password to unlock the vault."
+                       StyleClass="SubHeader"></Label>
+                <controls:PasswordEntryView x:Name="PasswordEntry"
+                                            AllowShowPassword="true" 
+                                            IsPassword="{Binding Path=ShowMasterPassphrase, Mode=TwoWay, Converter={StaticResource BooleanInverterConverter}}"
+                                            Placeholder="Enter master passphrase here!"
+                                            Text="{Binding Path=MasterPassphrase, Mode=TwoWay}"
+                                            ReturnCommand="{Binding CompletedCommand}"
+                                            ShowStrengthIndicator="False"></controls:PasswordEntryView>
+            </StackLayout>
+        </Grid>
+
+    </ContentView.Content>
+</views:PageNavigationAwareView>

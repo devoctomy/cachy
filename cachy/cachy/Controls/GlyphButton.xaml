@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             x:Class="cachy.Controls.GlyphButton"
+             x:Name="Root"
+             BackgroundColor="{Binding Path=BackgroundColor, Source={x:Reference Root}}">
+  <ContentView.Content>
+        <Frame x:Name="LayoutRoot"
+               BackgroundColor="Transparent"
+               BorderColor="Transparent"
+               Padding="0"
+               CornerRadius="{Binding Path=CornerRadius, Source={x:Reference Root}}"
+               HasShadow="False">
+            <Grid>
+                <Grid>
+                    <controls:LabelEx x:Name="GlyphTextLabel"
+                                      Text="{Binding Path=Text, Source={x:Reference Root}}"
+                                      TextColor="{Binding Path=LabelColour, Source={x:Reference Root}}"
+                                      FontSize="{Binding Path=LabelFontSize, Source={x:Reference Root}}"
+                                      FontAttributes="{Binding Path=LabelFontAttributes, Source={x:Reference Root}}"
+                                      HorizontalOptions="Fill"
+                                      VerticalOptions="Fill"
+                                      VerticalTextAlignment="Center"
+                                      HorizontalTextAlignment="End"  
+                                      Margin="0,0,8,0"
+                                      IsVisible="{Binding Path=TextLabelIsVisible, Source={x:Reference Root}}"
+                                      IsEnabled="{Binding Path=IsEnabled, Source={x:Reference Root}}">
+                    </controls:LabelEx>
+                    <controls:LabelEx x:Name="GlyphIconLabel"
+                                      Text="{Binding Path=GlyphText, Source={x:Reference Root}}"
+                                      TextColor="{Binding Path=GlyphColour, Source={x:Reference Root}}"
+                                      FontSize="{Binding Path=GlyphFontSize, Source={x:Reference Root}}"
+                                      HorizontalOptions="Start"
+                                      WidthRequest="{Binding Path=Height, Source={x:Reference Root}}"
+                                      VerticalOptions="Fill"
+                                      VerticalTextAlignment="Center"
+                                      HorizontalTextAlignment="Start"
+                                      IsVisible="{Binding Path=IconLabelIsVisible, Source={x:Reference Root}}"
+                                      Margin="{Binding Path=IconMargin, Source={x:Reference Root}}">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                        </Label.FontFamily>
+                    </controls:LabelEx>
+                </Grid>
+                <Button Command="{Binding Path=CommandProxy, Source={x:Reference Root}}" 
+                        CommandParameter="{Binding Path=CommandParameter, Source={x:Reference Root}}"
+                        CornerRadius="{Binding Path=CornerRadius, Source={x:Reference Root}}"
+                        IsVisible="{Binding Path=IsEnabled, Source={x:Reference Root}}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="BorderWidth" 
+                                    Value="0"/>
+                            <Setter Property="BackgroundColor" 
+                                    Value="Transparent"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

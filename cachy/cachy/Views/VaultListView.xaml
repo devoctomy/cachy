@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Views.VaultListView"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             xmlns:behaviors="clr-namespace:cachy.Behaviors"
+             xmlns:fonts="clr-namespace:cachy.Fonts"
+             x:Name="Root"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
+            <converters:StringToGridLengthConverter x:Key="StringToGridLengthConverter"/>
+            <converters:BooleanInverterConverter x:Key="BooleanInverterConverter"/>
+            <converters:SyncStatusToGlyphConverter x:Key="SyncStatusToGlyphConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_SYNCHRONIZE}"
+                   FontSize="16"
+                   HorizontalOptions="End"
+                   VerticalOptions="Start"
+                   IsVisible="{Binding Path=BindingContext.IsSynchronising, Source={x:Reference Root}}"
+                   TextColor="{StaticResource Accent}"
+                   Margin="0,0,10,0">
+                <Label.FontFamily>
+                    <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                </Label.FontFamily>
+            </Label>
+            <ListView x:Name="VaultsList"
+                      ItemsSource="{Binding Vaults}" 
+                      HasUnevenRows="True"
+                      Margin="0,16,0,0">
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="ItemSelected" 
+                                                      Command="{Binding VaultSelectedCommand}" 
+                                                      Converter="{StaticResource SelectedItemConverter}" />
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Remove" 
+                                          Command="{Binding Path=BindingContext.RemoveVaultCommand, Source={x:Reference Root}}" 
+                                          CommandParameter="{Binding}"></MenuItem>
+                                <MenuItem Text="Delete" 
+                                          Command="{Binding Path=BindingContext.DeleteVaultCommand, Source={x:Reference Root}}" 
+                                          CommandParameter="{Binding}"></MenuItem>
+                                <MenuItem Text="Information" 
+                                          Command="{Binding Path=BindingContext.VaultInformationCommand, Source={x:Reference Root}}" 
+                                          CommandParameter="{Binding}"></MenuItem>
+                            </ViewCell.ContextActions>
+                            <Frame BackgroundColor="{StaticResource BackgroundColour}"
+                                       CornerRadius="0"
+                                       Padding="0">
+                                <controls:BorderView
+                                                     Margin="8" 
+                                                     BorderColour="{StaticResource ItemBorderColour}" 
+                                                     BorderThickness="2">
+                                    <controls:BorderView.InternalContent>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="96"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="48"></RowDefinition>
+                                                <RowDefinition Height="48"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_LOCKER}" 
+                                                       StyleClass="ExtraLargeHeaderGlyph"
+                                                       VerticalOptions="Center"
+                                                       HorizontalOptions="Center"
+                                                       Grid.RowSpan="3">
+                                                <Label.FontFamily>
+                                                    <OnPlatform x:TypeArguments="x:String"
+                                                                Android="Fonts/cachyglyphs.ttf#cachyglyphs" 
+                                                                WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                                </Label.FontFamily>
+                                            </Label>
+                                            <Label Grid.Column="1"
+                                                   StyleClass="SubHeader"
+                                                   VerticalOptions="End"
+                                                   Text="{Binding Name}" />
+                                            <Label Grid.Row="1" 
+                                                   Grid.Column="1"
+                                                   StyleClass="Body"
+                                                   Text="{Binding Description}"
+                                                   VerticalOptions="Start"/>
+                                            <StackLayout Orientation="Horizontal"
+                                                         Margin="0,4,4,0"
+                                                         VerticalOptions="Start"
+                                                         HorizontalOptions="End"
+                                                         Grid.ColumnSpan="2"
+                                                         Grid.RowSpan="3">
+                                                <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_LINK_WF}" 
+                                                       StyleClass="HeaderGlyph"    
+                                                       IsVisible="{Binding Path=IsInLocalVaultStore, Converter={StaticResource BooleanInverterConverter}}">
+                                                    <Label.FontFamily>
+                                                        <OnPlatform x:TypeArguments="x:String"
+                                                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs" 
+                                                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                                    </Label.FontFamily>
+                                                </Label>
+                                                <Label Text="{Binding Path=SyncStatus.Status, Converter={StaticResource SyncStatusToGlyphConverter}}" 
+                                                       StyleClass="HeaderGlyph"    
+                                                       IsVisible="{Binding Path=IsCloudSynced}">
+                                                    <Label.FontFamily>
+                                                        <OnPlatform x:TypeArguments="x:String"
+                                                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs" 
+                                                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                                    </Label.FontFamily>
+                                                </Label>
+                                            </StackLayout>
+                                        </Grid>
+                                    </controls:BorderView.InternalContent>
+                                </controls:BorderView>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+            <Frame CornerRadius="8"
+                   Opacity="0.75"
+                   BackgroundColor="{StaticResource Accent}"
+                   VerticalOptions="End"
+                   Margin="16"
+                   IsVisible="{Binding Path=ShowVaultListTip}"
+                   Padding="0">
+                <Grid>
+                    <controls:LabelEx Text="Hold / Right Click a vault to access more options."
+                                  Margin="8"
+                                  HorizontalTextAlignment="Center"
+                                  VerticalOptions="End"
+                                  FontSize="16"
+                                  FontAttributes="Italic,Bold"
+                                  TextColor="{StaticResource AltTextColour}"
+                                  LineBreakMode="WordWrap">
+                    </controls:LabelEx>
+                    <Button x:Name="CloseVaultListTipButton"
+                        CornerRadius="8"
+                        Command="{Binding Path=CloseVaultListTipCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="BorderWidth" 
+                                    Value="0"/>
+                                <Setter Property="BackgroundColor" 
+                                    Value="Transparent"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </Frame>
+
+            <Grid BackgroundColor="{StaticResource BackgroundColour}"
+                  IsVisible="{Binding IsEmpty}">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center"
+                             Margin="8">
+                    <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_LOCKER}"
+                           FontSize="74"
+                           HorizontalOptions="Center"
+                           StyleClass="HeaderGlyphComment">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs" 
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                        </Label.FontFamily>
+                    </Label>
+                    <Label StyleClass="HeaderGlyphComment"
+                           Text="You have no vaults here, create a new one, or add an existing one to start protecting your credentials."
+                           HorizontalTextAlignment="Center">
+                    </Label>
+                </StackLayout>
+            </Grid>
+            <Grid BackgroundColor="{StaticResource BackgroundColour}"
+                  IsVisible="{Binding Path=IsUnlocking}">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center"
+                             Margin="8">
+                    <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_LOCK}"
+                           FontSize="74"
+                           HorizontalOptions="Center"
+                           StyleClass="HeaderGlyphComment">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                        </Label.FontFamily>
+                    </Label>
+                    <Label StyleClass="HeaderGlyphComment"
+                           Text="Attempting to unlock vault, please wait..."
+                           HorizontalTextAlignment="Center">
+                    </Label>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

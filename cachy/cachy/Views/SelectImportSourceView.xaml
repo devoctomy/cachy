@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:behaviors="clr-namespace:cachy.Behaviors"
+             xmlns:fonts="clr-namespace:cachy.Fonts"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             x:Class="cachy.Views.SelectImportSourceView"
+             BackgroundColor="{StaticResource BackgroundColour}"
+             x:Name="Root">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:BooleanToResourceColourConverter x:Key="BooleanToResourceColourConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Select Import Source"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding BackCommand}">
+                </controls:GlyphButton>
+                <controls:GlyphButton Grid.Column="2"
+                                      Glyph="Check" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding AcceptCommand}"
+                                      IsEnabled="{Binding SourceIsSelected}">
+                </controls:GlyphButton>
+            </Grid>
+            <controls:ListViewEx x:Name="ImportSourceList"
+                      ItemsSource="{Binding Path=ImportSources}"
+                      CachingStrategy="RecycleElementAndDataTemplate"
+                      SelectedItem="{Binding Path=SelectedImportSource, Mode=TwoWay}"
+                      TagEx="{Binding Source={x:Reference Root}}"
+                      SelectionMode="Single"
+                      HasUnevenRows="True"
+                      Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame BackgroundColor="{StaticResource BackgroundColour}"
+                                   CornerRadius="0"
+                                   Padding="0">
+                                <controls:BorderView Margin="8" 
+                                                     BorderColour="{Binding Path=IsSelected, Converter={StaticResource BooleanToResourceColourConverter}, ConverterParameter='Accent,ItemBorderColour'}"
+                                                     BorderThickness="2">
+                                    <controls:BorderView.InternalContent>
+                                        <StackLayout Orientation="Vertical">
+                                            <Grid RowSpacing="0"
+                                                  ColumnSpacing="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="64"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <controls:LabelEx Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_DATA_REPLACE}"
+                                                                  HorizontalOptions="Center"
+                                                                  VerticalOptions="Center"
+                                                                  FontSize="46"
+                                                                  Grid.RowSpan="2"
+                                                                  EnabledTextColour="{StaticResource Accent}">
+                                                    <Label.FontFamily>
+                                                        <OnPlatform x:TypeArguments="x:String"
+                                                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                                    </Label.FontFamily>
+                                                </controls:LabelEx>
+                                                <Label Grid.Column="1" 
+                                                       StyleClass="SubHeader"
+                                                       VerticalOptions="Center"
+                                                       Text="{Binding Path=Name}"
+                                                       Margin="8,0,0,0"/>
+                                                <Label Grid.Row="1" 
+                                                       Grid.Column="1"
+                                                       Text="{Binding Path=Description}"
+                                                       Margin="8,0,0,0"/>
+                                            </Grid>
+                                        </StackLayout>
+                                    </controls:BorderView.InternalContent>
+                                </controls:BorderView>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </controls:ListViewEx>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

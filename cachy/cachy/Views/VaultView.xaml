@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Views.VaultView"
+             xmlns:views="clr-namespace:cachy.Views"                  
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             xmlns:behaviors="clr-namespace:cachy.Behaviors"
+             xmlns:fonts="clr-namespace:cachy.Fonts"
+             x:Name="ValutViewRoot"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
+            <converters:UTCToLocalDateTimeConverter  x:Key="DateTimeConverter" />
+            <converters:GlyphKeyConverter x:Key="GlyphKeyConverter"/>
+            <converters:ColourConverter x:Key="ColourConverter"/>
+            <converters:StringToGridLengthConverter x:Key="StringToGridLengthConverter"/>
+            <converters:BooleanToDoubleConverter x:Key="BooleanToDoubleConverter"/>
+            <converters:BooleanToResourceColourConverter x:Key="BooleanToResourceColourConverter"/>
+            <converters:CredentialToHeightConverter x:Key="CredentialToHeightConverter"/>
+            <converters:BooleanToGridLengthConverter x:Key="BooleanToGridLengthConverter"/>
+            <converters:DateTimeToDaysPastStringConverter x:Key="DateTimeToDaysPastStringConverter"/>
+            <converters:ObjectToStringConverter x:Key="ObjectToStringConverter"/>
+            <converters:BooleanInverterConverter x:Key="BooleanInverterConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <StackLayout>
+                <Frame MinimumHeightRequest="150"
+                       HeightRequest="150"
+                       BackgroundColor="{StaticResource BackgroundColour}"
+                       BorderColor="{StaticResource ItemBorderColour}"
+                       HasShadow="False"
+                       Margin="2"
+                       Padding="0">
+                    <StackLayout Orientation="Vertical"
+                                 Spacing="8"
+                                 Margin="8">
+                        <Entry x:Name="SearchEntry"
+                           StyleClass="Search"
+                           VerticalOptions="Center"
+                           Placeholder="Search..."
+                           Keyboard="Plain"
+                           ReturnCommand="{Binding SearchCompletedCommand}"
+                           ReturnCommandParameter="{Binding Source={x:Reference SearchEntry}}"
+                           ReturnType="Next">
+                            <Entry.Behaviors>
+                                <behaviors:EventToCommandBehavior EventName="TextChanged"
+                                                          Command="{Binding SearchTextChangedCommand}"
+                                                          CommandParameter="{Binding Source={x:Reference SearchEntry}}"/>
+                            </Entry.Behaviors>
+                        </Entry>
+                        <Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <controls:LabelEx Text="Credential Sort Field"
+                                              HorizontalOptions="Start"
+                                              StyleClass="SubHeader"
+                                              FontAttributes="Bold"
+                                              EnabledTextColour="{StaticResource Accent}"
+                                                  VerticalTextAlignment="Center">
+                                </controls:LabelEx>
+                                <Picker Grid.Column="1"
+                                        ItemsSource="{Binding SortFields}"
+                                        SelectedItem="{Binding SortField, Mode=TwoWay}">
+                                </Picker>
+                            </Grid>
+                        </Grid>
+                        <controls:SwitchWithLabel Label="Ascending Order"
+                                                  HorizontalOptions="Fill"
+                                                  IsSwitched="{Binding Ascending, Mode=TwoWay}">
+                        </controls:SwitchWithLabel>
+                    </StackLayout>
+                </Frame>
+                <ListView x:Name="FilteredCredentialsList"
+                      ItemsSource="{Binding FilteredCredentials}"
+                      HasUnevenRows="True"
+                      IsVisible="{Binding Vault.HasCredentials}"
+                      CachingStrategy="RecycleElementAndDataTemplate"
+                      Margin="8">
+                    <ListView.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="ItemSelected" 
+                                                              Command="{Binding CredentialSelectedCommand}" 
+                                                              Converter="{StaticResource SelectedItemConverter}" />
+                    </ListView.Behaviors>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Duplicate" 
+                                                  Command="{Binding Path=BindingContext.DuplicateCredentialCommand, Source={x:Reference ValutViewRoot}}" 
+                                                  CommandParameter="{Binding}"></MenuItem>
+                                    <MenuItem Text="Edit" 
+                                                  Command="{Binding Path=BindingContext.EditCredentialCommand, Source={x:Reference ValutViewRoot}}" 
+                                                  CommandParameter="{Binding}"></MenuItem>
+                                    <MenuItem Text="Remove" 
+                                                  Command="{Binding Path=BindingContext.RemoveCredentialCommand, Source={x:Reference ValutViewRoot}}" 
+                                                  CommandParameter="{Binding}"></MenuItem>
+                                    <MenuItem Text="Audit Log..."
+                                                  Command="{Binding Path=BindingContext.ViewCredentialAuditLogCommand, Source={x:Reference ValutViewRoot}}" 
+                                                  CommandParameter="{Binding}"></MenuItem>
+                                    <MenuItem Text="Open in browser..."
+                                              Command="{Binding Path=BindingContext.OpenInBrowserCommand, Source={x:Reference ValutViewRoot}}" 
+                                              CommandParameter="{Binding}"></MenuItem>
+                                </ViewCell.ContextActions>
+                                <Frame BackgroundColor="{StaticResource BackgroundColour}"
+                                       CornerRadius="0"
+                                       Padding="0"
+                                       HeightRequest="{Binding Path=Me, Converter={StaticResource CredentialToHeightConverter}, ConverterParameter='100,48,150'}">
+                                    <controls:BorderView Margin="8" 
+                                                         BackgroundColor="{StaticResource BackgroundColour}"
+                                                         BorderColour="{Binding Path=IsSelected, Converter={StaticResource BooleanToResourceColourConverter}, ConverterParameter='Accent,ItemBorderColour'}" 
+                                                         BorderThickness="2">
+                                        <controls:BorderView.InternalContent>
+                                            <StackLayout Orientation="Vertical">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="64"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="32"></RowDefinition>
+                                                        <RowDefinition Height="32"></RowDefinition>
+                                                        <RowDefinition Height="{Binding Path=HasTags, Converter={StaticResource BooleanToGridLengthConverter}, ConverterParameter='48,0'}"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Label Text="{Binding Path=GlyphKey, Converter={StaticResource GlyphKeyConverter}, ConverterParameter=Unicode, Mode=OneTime}"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center"
+                                                           StyleClass="LargeHeaderGlyph"
+                                                           Grid.RowSpan="2"
+                                                           TextColor="{Binding Path=GlyphColour, Converter={StaticResource ColourConverter}, Mode=OneTime}">
+                                                        <Label.FontFamily>
+                                                            <OnPlatform x:TypeArguments="x:String"
+                                                                            Android="Fonts/cachyglyphs.ttf#cachyglyphs" 
+                                                                            WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                                        </Label.FontFamily>
+                                                    </Label>
+                                                    <Label Grid.Column="1" 
+                                                           StyleClass="SubHeader"
+                                                           VerticalOptions="End"
+                                                           Text="{Binding Path=Name, Mode=OneTime}"
+                                                           Margin="8,0,0,0"/>
+                                                    <Label Grid.Row="1" 
+                                                           Grid.Column="1"
+                                                           Text="{Binding Path=Description, Mode=OneTime}"
+                                                           StyleClass="Body"
+                                                           Margin="8,0,0,0"
+                                                           VerticalOptions="Start"
+                                                           LineBreakMode="TailTruncation"/>
+                                                    <ScrollView Grid.Row="2"
+                                                                Grid.ColumnSpan="2"
+                                                                Orientation="Horizontal">
+                                                        <controls:TagEditor Tags="{Binding Path=Tags, Mode=OneTime}"
+                                                                            TagBackColour="{StaticResource Accent}"
+                                                                            TagTextColour="{StaticResource AltTextColour}"
+                                                                            TagBorderColour="{StaticResource AltItemBorderColour}"
+                                                                            IsVisible="{Binding Path=HasTags}"
+                                                                            Orientation="Horizontal">
+                                                        </controls:TagEditor>
+                                                    </ScrollView>
+                                                    <controls:LabelEx Grid.RowSpan="2"
+                                                                      Grid.ColumnSpan="2"
+                                                                      Text="{Binding Path=PasswordLastModifiedAt, Converter={StaticResource DateTimeToDaysPastStringConverter}, ConverterParameter='\{0\} days'}"
+                                                                      HorizontalOptions="End"
+                                                                      VerticalOptions="End"
+                                                                      EnabledTextColour="{StaticResource Accent}"
+                                                                      FontAttributes="Bold"
+                                                                      IsVisible="{Binding Path=BindingContext.ShowPasswordAge, Source={x:Reference ValutViewRoot}}">
+                                                    </controls:LabelEx>
+                                                </Grid>
+                                                <Frame BackgroundColor="{StaticResource BackgroundColour}"
+                                                           BorderColor="{StaticResource ItemBorderColour}"
+                                                           IsVisible="{Binding IsSelectedWithClipboardFields}">
+                                                    <StackLayout x:Name="{Binding ID}"
+                                                                     Orientation="Vertical">
+                                                        <Picker x:Name="QuickAccessPicker"
+                                                                    ItemsSource="{Binding ClipboardFields}"
+                                                                    Title="Quick Access">
+                                                        </Picker>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Button Text="Copy"
+                                                                Command="{Binding Path=SelectedItem.CopyCommand, Source={x:Reference QuickAccessPicker}}"
+                                                                CommandParameter="{Binding Path=SelectedItem, Source={x:Reference QuickAccessPicker}}"
+                                                                Grid.Column="0"></Button>
+                                                            <Button Text="Reveal"
+                                                                Command="{Binding Path=SelectedItem.RevealCommand, Source={x:Reference QuickAccessPicker}}"
+                                                                CommandParameter="{Binding Path=SelectedItem, Source={x:Reference QuickAccessPicker}}"
+                                                                Grid.Column="1"></Button>
+                                                        </Grid>
+                                                    </StackLayout>
+                                                </Frame>
+                                            </StackLayout>
+                                        </controls:BorderView.InternalContent>
+                                    </controls:BorderView>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <Frame CornerRadius="8"
+                   Opacity="0.75"
+                   BackgroundColor="{StaticResource Accent}"
+                   VerticalOptions="End"
+                   Margin="16"
+                   IsVisible="{Binding Path=ShowCredentialListTip}"
+                   Padding="0">
+                <Grid>
+                    <controls:LabelEx Text="Hold / Right Click a credential to access more options."
+                                  Margin="8"
+                                  HorizontalTextAlignment="Center"
+                                  VerticalOptions="End"
+                                  FontSize="16"
+                                  FontAttributes="Italic,Bold"
+                                  TextColor="{StaticResource AltTextColour}"
+                                  LineBreakMode="WordWrap">
+                    </controls:LabelEx>
+                    <Button x:Name="CloseVaultListTipButton"
+                        CornerRadius="8"
+                        Command="{Binding Path=CloseCredentialListTipCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="BorderWidth" 
+                                    Value="0"/>
+                                <Setter Property="BackgroundColor" 
+                                    Value="Transparent"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </Frame>
+            <Grid BackgroundColor="{StaticResource BackgroundColour}"
+                  IsVisible="{Binding Vault.IsEmpty}">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center"
+                             Margin="8">
+                    <Label Text="&#xe701;"
+                           FontSize="96"
+                           HorizontalOptions="Center"
+                           StyleClass="HeaderGlyphComment">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                        </Label.FontFamily>
+                    </Label>
+                    <Label StyleClass="HeaderGlyphComment"
+                           Text="You have no credentials in this vault yet, add one to start protecting it."
+                           HorizontalTextAlignment="Center">
+                    </Label>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

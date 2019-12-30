@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:behaviors="clr-namespace:cachy.Behaviors"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             x:Class="cachy.Views.AddExistingVaultView"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemEventArgsToSelectedItemConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Add Existing Vault"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding BackCommand}">
+                </controls:GlyphButton>
+                <controls:GlyphButton Grid.Column="2"
+                                      Glyph="Check" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding AcceptCommand}">
+                </controls:GlyphButton>
+            </Grid>
+            <StackLayout Grid.Row="1"
+                         Spacing="8"
+                         Margin="8">
+                <Grid Margin="8"
+                      HeightRequest="64"
+                      MinimumHeightRequest="64">
+                    <controls:GlyphButton HeightRequest="64"
+                                          Mode="GlyphAndTextLeftRight"
+                                          Text="Vault File On This Device"
+                                          Glyph="I_Phone"
+                                          IconMargin="16,0,0,0"
+                                          BackgroundColor="{StaticResource AltGlyphButtonBackgroundColour}"
+                                          Command="{Binding Path=LocalVaultCommand}">
+                    </controls:GlyphButton>
+                </Grid>
+                <Label  Margin="0,16,0,0"
+                        Text="Or"
+                        StyleClass="SubHeader"
+                        HorizontalTextAlignment="Center">
+                </Label>
+                <Label  Text="Vault File On The Cloud"
+                        StyleClass="SubHeader"
+                        HorizontalTextAlignment="Center">
+                </Label>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="64"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <controls:CloudProvidersList x:Name="CloudProvidersList"
+                                                 ConfiguredCloudProviders="{Binding Path=CloudProviders}"
+                                                 SelectedProvider="{Binding Path=SelectedCloudProvider, Mode=OneWayToSource}"
+                                                 AllowRemoveProvider="False"
+                                                 SelectionMode="Single">
+                    </controls:CloudProvidersList>
+
+                    <controls:GlyphButton Glyph="Circle_Add_03"
+                                          Text="Add New Provider"
+                                          Mode="GlyphAndTextLeftRight"
+                                          HeightRequest="64"
+                                          Command="{Binding Path=AddCloudProvider}"
+                                          BackgroundColor="{StaticResource AltGlyphButtonBackgroundColour}"
+                                          IconMargin="16,0,0,0"
+                                          Margin="0,8,0,0"
+                                          MinimumHeightRequest="64"
+                                          Grid.Row="1">
+                    </controls:GlyphButton>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

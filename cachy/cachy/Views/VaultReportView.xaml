@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Views.VaultReportView"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:fonts="clr-namespace:cachy.Fonts"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             x:Name="ViewReportRoot"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:ObjectToStringConverter x:Key="ObjectToStringConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Vault Report"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding BackCommand}">
+                </controls:GlyphButton>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <ScrollView Orientation="Vertical">
+                        <StackLayout Orientation="Vertical"
+                                     Margin="8">
+                            <Label Text="{Binding Path=ReportResultGlyphText}"
+                                   FontSize="128"
+                                   HorizontalOptions="Center"
+                                   StyleClass="HeaderGlyphComment"
+                                   VerticalOptions="Center"
+                                   Grid.Row="1"
+                                   TextColor="{Binding Path=ReportResultGlyphColour}">
+                                <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String"
+                                                Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                                WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                </Label.FontFamily>
+                            </Label>
+                            <Label Text="{Binding Path=ReportSummaryText}"
+                                   HorizontalOptions="Center"
+                                   StyleClass="Body"
+                                   Margin="8"/>
+                            <controls:ExpandableView x:Name="ReusedView"
+                                                     Title="Password Reuse"
+                                                     IsExpanded="False"
+                                                     Margin="8"
+                                                     BackgroundColor="{StaticResource BackgroundColour}"
+                                                     IsVisible="{Binding Path=HasReusedPasswords}">
+                                <controls:ExpandableView.ExpandedContent>
+                                    <StackLayout>
+                                        <Label Text="The following credentials are reusing the same passwords.  It is strongly advised that you change them as soon as possible."
+                                               HorizontalOptions="Center"
+                                               StyleClass="Body"
+                                               Margin="8"/>
+                                        <controls:GlyphButton Glyph="Show"
+                                                              Text="Show Credentials in Vault"
+                                                              Mode="GlyphAndTextLeftRight"
+                                                              HeightRequest="64"
+                                                              BackgroundColor="{StaticResource AltGlyphButtonBackgroundColour}"
+                                                              IconMargin="16,0,0,0"
+                                                              Margin="8"
+                                                              Command="{Binding Path=ShowInVault}"
+                                                              CommandParameter="reused">
+                                        </controls:GlyphButton>
+                                        <ListView CachingStrategy="RecycleElementAndDataTemplate"
+                                                  SelectionMode="None"
+                                                  ItemsSource="{Binding Path=ReusedPasswords}"
+                                                  HeightRequest="{Binding Path=ReusedPasswordsHeight}"
+                                                  RowHeight="60"
+                                                  VerticalScrollBarVisibility="Never">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ViewCell>
+                                                        <Grid Margin="8">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="48"></ColumnDefinition>
+                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="48"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_LOGIN_01}"
+                                                                   FontSize="32"
+                                                                   HorizontalOptions="Center"
+                                                                   StyleClass="HeaderGlyphComment"
+                                                                   VerticalOptions="Center">
+                                                                <Label.FontFamily>
+                                                                    <OnPlatform x:TypeArguments="x:String"
+                                                                                Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                                                                WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                                                </Label.FontFamily>
+                                                            </Label>
+                                                            <Label Grid.Column="1"
+                                                                   Text="{Binding Name}"
+                                                                   StyleClass="SubHeader"
+                                                                   VerticalTextAlignment="Center"
+                                                                   Margin="8,0,0,0">
+                                                            </Label>
+                                                            <controls:GlyphButton Grid.Column="2"
+                                                                                  Glyph="Tools"
+                                                                                  Mode="GlyphOnly"
+                                                                                  IconMargin="4,2,0,0"
+                                                                                  Command="{Binding Path=BindingContext.FixCommand, Source={x:Reference ViewReportRoot}}"
+                                                                                  CommandParameter="{Binding}">
+                                                            </controls:GlyphButton>
+                                                        </Grid>
+                                                    </ViewCell>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackLayout>
+                                </controls:ExpandableView.ExpandedContent>
+                            </controls:ExpandableView>
+                            <controls:ExpandableView x:Name="KnownView"
+                                                     Title="Known Passwords"
+                                                     IsExpanded="False"
+                                                     Margin="8"
+                                                     BackgroundColor="{StaticResource BackgroundColour}"
+                                                     IsVisible="{Binding Path=HasKnownPasswords}">
+                                <controls:ExpandableView.ExpandedContent>
+                                    <StackLayout>
+                                        <Label Text="The following credentials have passwords that were found in the internal weak password database.  It is strongly advised that you change them as soon as possible."
+                                               HorizontalOptions="Center"
+                                               StyleClass="Body"
+                                               Margin="8"/>
+                                        <controls:GlyphButton Glyph="Show"
+                                                              Text="Show Credentials in Vault"
+                                                              Mode="GlyphAndTextLeftRight"
+                                                              HeightRequest="64"
+                                                              BackgroundColor="{StaticResource AltGlyphButtonBackgroundColour}"
+                                                              IconMargin="16,0,0,0"
+                                                              Margin="8"
+                                                              Command="{Binding Path=ShowInVault}"
+                                                              CommandParameter="known">
+                                        </controls:GlyphButton>
+                                        <ListView HasUnevenRows="False"
+                                                  CachingStrategy="RecycleElement"
+                                                  SelectionMode="None"
+                                                  ItemsSource="{Binding Path=KnownPasswords}"
+                                                  HeightRequest="{Binding Path=KnownPasswordsHeight}"
+                                                  RowHeight="60"
+                                                  VerticalScrollBarVisibility="Never">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ViewCell>
+                                                        <Grid Margin="8">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="48"></ColumnDefinition>
+                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="48"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_LOGIN_01}"
+                                                                   FontSize="32"
+                                                                   HorizontalOptions="Center"
+                                                                   StyleClass="HeaderGlyphComment"
+                                                                   VerticalOptions="Center">
+                                                                <Label.FontFamily>
+                                                                    <OnPlatform x:TypeArguments="x:String"
+                                                                                Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                                                                WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                                                </Label.FontFamily>
+                                                            </Label>
+                                                            <Label Grid.Column="1"
+                                                                   Text="{Binding Name}"
+                                                                   StyleClass="SubHeader"
+                                                                   VerticalTextAlignment="Center"
+                                                                   Margin="8,0,0,0">
+                                                            </Label>
+                                                            <controls:GlyphButton Grid.Column="2"
+                                                                                  Glyph="Tools"
+                                                                                  Mode="GlyphOnly"
+                                                                                  IconMargin="4,2,0,0"
+                                                                                  Command="{Binding Path=BindingContext.FixCommand, Source={x:Reference ViewReportRoot}}"
+                                                                                  CommandParameter="{Binding}">
+                                                            </controls:GlyphButton>
+                                                        </Grid>
+                                                    </ViewCell>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackLayout>
+                                </controls:ExpandableView.ExpandedContent>
+                            </controls:ExpandableView>
+                            <controls:ExpandableView x:Name="WeakView"
+                                                     Title="Weak Passwords"
+                                                     IsExpanded="False"
+                                                     Margin="8"
+                                                     BackgroundColor="{StaticResource BackgroundColour}"
+                                                     IsVisible="{Binding Path=HasWeakPasswords}">
+                                <controls:ExpandableView.ExpandedContent>
+                                    <StackLayout>
+                                        <Label Text="The following credentials have passwords that did not pass the complexity test.  It is strongly advised that you change them as soon as possible."
+                                               HorizontalOptions="Center"
+                                               StyleClass="Body"
+                                               Margin="8"/>
+                                        <controls:GlyphButton Glyph="Show"
+                                                              Text="Show Credentials in Vault"
+                                                              Mode="GlyphAndTextLeftRight"
+                                                              HeightRequest="64"
+                                                              BackgroundColor="{StaticResource AltGlyphButtonBackgroundColour}"
+                                                              IconMargin="16,0,0,0"
+                                                              Margin="8"
+                                                              Command="{Binding Path=ShowInVault}"
+                                                              CommandParameter="weak">
+                                        </controls:GlyphButton>
+                                        <ListView HasUnevenRows="False"
+                                                  CachingStrategy="RecycleElement"
+                                                  SelectionMode="None"
+                                                  ItemsSource="{Binding Path=WeakPasswords}"
+                                                  HeightRequest="{Binding Path=WeakPasswordsHeight}"
+                                                  RowHeight="60"
+                                                  VerticalScrollBarVisibility="Never">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ViewCell>
+                                                        <Grid Margin="8">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="48"></ColumnDefinition>
+                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="48"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_LOGIN_01}"
+                                                                   FontSize="32"
+                                                                   HorizontalOptions="Center"
+                                                                   StyleClass="HeaderGlyphComment"
+                                                                   VerticalOptions="Center">
+                                                                <Label.FontFamily>
+                                                                    <OnPlatform x:TypeArguments="x:String"
+                                                                                Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                                                                WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                                                </Label.FontFamily>
+                                                            </Label>
+                                                            <Label Grid.Column="1"
+                                                                   Text="{Binding Name}"
+                                                                   StyleClass="SubHeader"
+                                                                   VerticalTextAlignment="Center"
+                                                                   Margin="8,0,0,0">
+                                                            </Label>
+                                                            <controls:GlyphButton Grid.Column="2"
+                                                                                  Glyph="Tools"
+                                                                                  Mode="GlyphOnly"
+                                                                                  IconMargin="4,2,0,0"
+                                                                                  Command="{Binding Path=BindingContext.FixCommand, Source={x:Reference ViewReportRoot}}"
+                                                                                  CommandParameter="{Binding}">
+                                                            </controls:GlyphButton>
+                                                        </Grid>
+                                                    </ViewCell>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackLayout>
+                                </controls:ExpandableView.ExpandedContent>
+                            </controls:ExpandableView>
+                            <controls:ExpandableView x:Name="OldView"
+                                                     Title="Old Passwords"
+                                                     IsExpanded="False"
+                                                     Margin="8"
+                                                     BackgroundColor="{StaticResource BackgroundColour}"
+                                                     IsVisible="{Binding Path=HasOldPasswords}">
+                                <controls:ExpandableView.ExpandedContent>
+                                    <StackLayout>
+                                        <Label Text="The following credentials have passwords that have not been changed for the number of days set in the cachy app settings, and so are considered 'old'.  It is strongly advised that you change them as soon as possible."
+                                               HorizontalOptions="Center"
+                                               StyleClass="Body"
+                                               Margin="8"/>
+                                        <controls:GlyphButton Glyph="Show"
+                                                              Text="Show Credentials in Vault"
+                                                              Mode="GlyphAndTextLeftRight"
+                                                              HeightRequest="64"
+                                                              BackgroundColor="{StaticResource AltGlyphButtonBackgroundColour}"
+                                                              IconMargin="16,0,0,0"
+                                                              Margin="8"
+                                                              Command="{Binding Path=ShowInVault}"
+                                                              CommandParameter="old">
+                                        </controls:GlyphButton>
+                                        <ListView HasUnevenRows="False"
+                                                  CachingStrategy="RecycleElement"
+                                                  SelectionMode="None"
+                                                  ItemsSource="{Binding Path=OldPasswords}"
+                                                  HeightRequest="{Binding Path=OldPasswordsHeight}"
+                                                  RowHeight="60"
+                                                  VerticalScrollBarVisibility="Never">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ViewCell>
+                                                        <Grid Margin="8">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="48"></ColumnDefinition>
+                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="48"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_LOGIN_01}"
+                                                                   FontSize="32"
+                                                                   HorizontalOptions="Center"
+                                                                   StyleClass="HeaderGlyphComment"
+                                                                   VerticalOptions="Center">
+                                                                <Label.FontFamily>
+                                                                    <OnPlatform x:TypeArguments="x:String"
+                                                                                Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                                                                WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                                                </Label.FontFamily>
+                                                            </Label>
+                                                            <Label Grid.Column="1"
+                                                                   Text="{Binding Name}"
+                                                                   StyleClass="SubHeader"
+                                                                   VerticalTextAlignment="Center"
+                                                                   Margin="8,0,0,0">
+                                                            </Label>
+                                                            <controls:GlyphButton Grid.Column="2"
+                                                                                  Glyph="Tools"
+                                                                                  Mode="GlyphOnly"
+                                                                                  IconMargin="4,2,0,0"
+                                                                                  Command="{Binding Path=BindingContext.FixCommand, Source={x:Reference ViewReportRoot}}"
+                                                                                  CommandParameter="{Binding}">
+                                                            </controls:GlyphButton>
+                                                        </Grid>
+                                                    </ViewCell>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackLayout>
+                                </controls:ExpandableView.ExpandedContent>
+                            </controls:ExpandableView>
+                        </StackLayout>
+                    </ScrollView>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

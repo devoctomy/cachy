@@ -1,0 +1,230 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>devoctomy</Authors>
+    <Product>cachy</Product>
+    <Description>Cross-platform Secure Credential Cache.  Common Xamarin, .NET Standard library.</Description>
+    <Copyright>Copyright devoctomy 2018 - 2019</Copyright>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>Full</DebugType>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="Models\**" />
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Models\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="Assets\Acknowledgements\acknowledgements.json" />
+    <None Remove="Assets\Dictionaries\adjectives.txt" />
+    <None Remove="Assets\Dictionaries\nouns.txt" />
+    <None Remove="Assets\Dictionaries\verbs.txt" />
+    <None Remove="Assets\Dictionaries\weakpasswords.txt" />
+    <None Remove="Assets\Images\cachyicon_centred.svg" />
+    <None Remove="cachy.csproj.vspscc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Acknowledgements\acknowledgements.json" />
+    <EmbeddedResource Include="Assets\Dictionaries\adjectives.txt" />
+    <EmbeddedResource Include="Assets\Dictionaries\nouns.txt" />
+    <EmbeddedResource Include="Assets\Dictionaries\verbs.txt" />
+    <EmbeddedResource Include="Assets\Dictionaries\weakpasswords.txt" />
+    <EmbeddedResource Include="Assets\Images\cachyicon_centred.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.3.101.2" />
+    <PackageReference Include="SkiaSharp.Extended" Version="1.60.0" />
+    <PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.0" />
+    <PackageReference Include="Xamarin.Dropbox.Api" Version="4.5.3.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.264807" />
+    <PackageReference Include="Xamarin.Plugin.FilePicker" Version="2.0.135" />  
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Controls\CloudProvidersList.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\ColourPicker.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\GlyphButton.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\NumericUpDown.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\PasswordEntryView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\SupportedCloudProvidersList.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\SwitchWithLabel.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\TreeView\TreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\TreeView\TreeViewNodeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Navigation\BurgerMenu\BurgerMenuHostPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\FirstRun.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\StartupHelpPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ColourSelectView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\CreateCredentialView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\CreateNewVaultView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\OAuthAuthenticateView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GeneratePasswordView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GlyphSelectView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\PermissionsRequests.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SettingsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\UnlockView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\VaultAuditView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\VaultListView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\VaultView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\devoctomy.cachy.Build\devoctomy.cachy.Build.csproj" />
+    <ProjectReference Include="..\..\devoctomy.cachy.Framework\devoctomy.cachy.Framework.csproj" />
+    <ProjectReference Include="..\..\devoctomy.DFramework.Core\devoctomy.DFramework.Core.csproj" />
+    <ProjectReference Include="..\..\devoctomy.DFramework.Logging\devoctomy.DFramework.Logging.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Pages\LandingPage.xaml.cs">
+      <DependentUpon>LandingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\PermissionsRequests.xaml.cs">
+      <DependentUpon>PermissionsRequests.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AcknowledgementsView.xaml.cs">
+      <DependentUpon>AcknowledgementsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ChangeLogView.xaml.cs">
+      <DependentUpon>ChangeLogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AmazonS3SetupView.xaml.cs">
+      <DependentUpon>AmazonS3SetupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\VaultReportView.xaml.cs">
+      <DependentUpon>VaultReportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SelectImportSourceView.xaml.cs">
+      <DependentUpon>SelectImportSourceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AddCloudProviderView.xaml.cs">
+      <DependentUpon>AddCloudProviderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CloudProviderFileSelectView.xaml.cs">
+      <DependentUpon>CloudProviderFileSelectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AddExistingVaultView.xaml.cs">
+      <DependentUpon>AddExistingVaultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ImportMappingView.xaml.cs">
+      <DependentUpon>ImportMappingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\VaultInfoView.xaml.cs">
+      <DependentUpon>VaultInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CreateCredentialView.xaml.cs">
+      <DependentUpon>CreateCredentialView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CreateNewVaultView.xaml.cs">
+      <DependentUpon>CreateNewVaultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\OAuthAuthenticateView.xaml.cs">
+      <DependentUpon>OAuthAuthenticateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GeneratePasswordView.xaml.cs">
+      <DependentUpon>GeneratePasswordView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CredentialAuditPage.xaml.cs">
+      <DependentUpon>CredentialAuditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GlyphSelectView.xaml.cs">
+      <DependentUpon>GlyphSelectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\UnlockView.xaml.cs">
+      <DependentUpon>UnlockView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\VaultAuditView.xaml.cs">
+      <DependentUpon>VaultAuditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\VaultListView.xaml.cs">
+      <DependentUpon>VaultListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\VaultView.xaml.cs">
+      <DependentUpon>VaultView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

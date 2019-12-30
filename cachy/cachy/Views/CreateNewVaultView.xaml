@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Views.CreateNewVaultView"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <ContentView.Content>
+        <Grid>
+            <controls:TabView SelectedTab="{Binding Path=SelectedTabPage}">
+                <controls:TabView.Tabs>
+                    <x:Array Type="{Type controls:TabPage}">
+                        <controls:TabPage TabTitle="INFO">
+                            <controls:TabPage.TabPageContent>
+                                <StackLayout Margin="8">
+                                    <Label Text="Name (Required)"
+                                           StyleClass="SubHeader"></Label>
+                                    <Entry Text="{Binding Path=Name}"
+                                           StyleClass="Normal"
+                                           Placeholder="Enter name here..."
+                                           Keyboard="Default"></Entry>
+                                    <Label Text="Description (Optional)"
+                                           StyleClass="SubHeader"></Label>
+                                    <Entry Text="{Binding Path=Description}"
+                                           StyleClass="Normal"
+                                           Placeholder="Enter description here..."
+                                           Keyboard="Default"></Entry>
+                                </StackLayout>
+                            </controls:TabPage.TabPageContent>
+                        </controls:TabPage>
+                        <controls:TabPage TabTitle="SECURITY">
+                            <controls:TabPage.Resources>
+                                <ResourceDictionary>
+                                    <converters:BooleanInverterConverter x:Key="BooleanInverterConverter" />
+                                </ResourceDictionary>
+                            </controls:TabPage.Resources>
+                            <controls:TabPage.TabPageContent>
+                                <StackLayout Margin="8">
+                                    <Label Text="Master Passphrase (Required)"
+                                           StyleClass="SubHeader"></Label>
+                                    <controls:PasswordEntryView
+                                        x:Name="MasterPassphraseEntry"
+                                        AllowShowPassword="true"
+                                        IsPassword="{Binding Path=ShowMasterPassphrase, Mode=TwoWay, Converter={StaticResource BooleanInverterConverter}}"
+                                        Placeholder="Enter master passphrase here..."
+                                        Text="{Binding Path=MasterPassphrase, Mode=TwoWay}"></controls:PasswordEntryView>
+                                </StackLayout>
+                            </controls:TabPage.TabPageContent>
+                        </controls:TabPage>
+                        <controls:TabPage TabTitle="SYNC">
+                            <controls:TabPage.Resources>
+                                <ResourceDictionary>
+                                    <converters:StringComparisonConverter x:Key="StringComparisonConverter" />
+                                    <converters:BooleanInverterConverter x:Key="BooleanInverterConverter" />
+                                    <converters:GlyphKeyConverter x:Key="GlyphKeyConverter"/>
+                                </ResourceDictionary>
+                            </controls:TabPage.Resources>
+                            <controls:TabPage.TabPageContent>
+                                <StackLayout>
+                                    <StackLayout Margin="8"
+                                                 Orientation="Vertical">
+                                        <Label Text="Vault File Name"
+                                           StyleClass="SubHeader"></Label>
+                                        <Entry Text="{Binding Path=FileName}"
+                                               StyleClass="Normal"
+                                               Keyboard="Plain"
+                                               IsSpellCheckEnabled="False"
+                                               IsTextPredictionEnabled="False"></Entry>
+                                    </StackLayout>
+                                    <StackLayout Margin="8"
+                                                 Orientation="Vertical">
+                                        <Label Text="Mode"
+                                               StyleClass="SubHeader"></Label>
+                                        <StackLayout Margin="8,0,0,0">
+                                            <controls:SwitchWithLabel Label="Local Only"
+                                                                      IsSwitched="{Binding Path=SyncModeLocalOnly}"
+                                                                      HeightRequest="32"
+                                                                      MinimumHeightRequest="32">
+                                            </controls:SwitchWithLabel>
+                                            <controls:LabelEx  Margin="8,0,0,0"
+                                               Text="The credentials in this vault will only be available on this device."
+                                               StyleClass="Body"
+                                               IsEnabled="{Binding Path=SyncModeLocalOnly}">
+                                            </controls:LabelEx>
+                                        </StackLayout>
+                                        <StackLayout Margin="8,0,0,0"
+                                                 Orientation="Vertical">
+                                            <controls:SwitchWithLabel Label="Cloud Synchronised"
+                                                                      IsSwitched="{Binding Path=SyncModeCloudSync}"
+                                                                      HeightRequest="32"
+                                                                      MinimumHeightRequest="32">
+                                            </controls:SwitchWithLabel>
+                                            <controls:LabelEx Margin="8,0,0,0"
+                                               Text="The credentials in this vault will be available on all synchronised devices."
+                                               StyleClass="Body"
+                                               IsEnabled="{Binding Path=SyncModeCloudSync}">
+                                            </controls:LabelEx>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <Grid Margin="16,8,8,8"
+                                          Grid.Row="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="64"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <controls:CloudProvidersList x:Name="CloudProvidersList"
+                                                                     ConfiguredCloudProviders="{Binding Path=CloudProviders}"
+                                                                     IsEnabled="{Binding Path=SyncModeCloudSync}"
+                                                                     SelectedProvider="{Binding Path=SelectedCloudProvider, Mode=TwoWay}"
+                                                                     AllowRemoveProvider="False"
+                                                                     SelectionMode="Single">
+                                        </controls:CloudProvidersList>
+
+                                        <controls:GlyphButton Glyph="Circle_Add_03"
+                                                      Text="Add New Provider"
+                                                      Mode="GlyphAndTextLeftRight"
+                                                      HeightRequest="64"
+                                                      Command="{Binding Path=AddCloudProvider}"
+                                                      BackgroundColor="{StaticResource AltGlyphButtonBackgroundColour}"
+                                                      IconMargin="16,0,0,0"
+                                                      Margin="0,8,0,0"
+                                                      MinimumHeightRequest="64"
+                                                      Grid.Row="1"
+                                                      IsEnabled="{Binding Path=SyncModeCloudSync}">
+                                        </controls:GlyphButton>
+                                    </Grid>
+                                </StackLayout>
+
+                            </controls:TabPage.TabPageContent>
+                        </controls:TabPage>
+                    </x:Array>
+                </controls:TabView.Tabs>
+            </controls:TabView>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

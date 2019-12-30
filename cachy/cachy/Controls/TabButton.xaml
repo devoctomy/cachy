@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:cachy.Controls"
+             x:Class="cachy.Controls.TabButton"
+             x:Name="Root">
+  <ContentView.Content>
+        <local:BorderView x:Name="ButtonBorder" BorderThickness="0" BorderColour="{Binding ButtonBorderColour, Source={x:Reference Root}}">
+            <local:BorderView.InternalContent>
+                <Grid>
+                    <Label x:Name="ButtonLabel"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Text="{Binding Text, Source={x:Reference Root}}"
+                           StyleClass="Body"></Label>
+                    <Button Clicked="Button_Clicked">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="BorderWidth" Value="0"/>
+                                <Setter Property="BackgroundColor" Value="Transparent"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </local:BorderView.InternalContent>
+        </local:BorderView>
+    </ContentView.Content>
+</ContentView>

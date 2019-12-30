@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Controls.TabView"
+             x:Name="Root">
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="64"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ScrollView Orientation="Horizontal" BackgroundColor="{Binding TabsBackgroundColour, Source={x:Reference Root}}">
+                <StackLayout x:Name="TabButtons" Orientation="Horizontal" Spacing="0">
+                </StackLayout>
+            </ScrollView>
+            <ContentView x:Name="SelectedTabPage" Grid.Row="1">
+            </ContentView>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

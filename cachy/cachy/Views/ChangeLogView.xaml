@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Views.ChangeLogView"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             x:Name="Root"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <views:PageNavigationAwareView.Resources>
+        <ResourceDictionary>
+            <converters:ObjectToStringConverter x:Key="ObjectToStringConverter" />
+            <converters:ChangeToColourConverter x:Key="ChangeToColourConverter" />
+        </ResourceDictionary>
+    </views:PageNavigationAwareView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Change Log"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding Path=BackCommand}">
+                </controls:GlyphButton>
+            </Grid>
+            <ListView x:Name="Changes"
+                      ItemsSource="{Binding Path=Releases}"
+                      IsGroupingEnabled="True"
+                      Grid.Row="1"
+                      Margin="16"
+                      HasUnevenRows="True"
+                      SelectionMode="None">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding Path=Heading}" 
+                                   Margin="0,8,0,0"
+                                   StyleClass="Header"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="8,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="96"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Frame CornerRadius="4"
+                                       BackgroundColor="{Binding Path=ChangeType, Converter={StaticResource Key=ChangeToColourConverter}}"
+                                       Padding="0"
+                                       Margin="2"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center">
+                                    <Label Text="{Binding Path=ChangeType, Converter={StaticResource Key=ObjectToStringConverter}}"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalTextAlignment="Center"
+                                       FontAttributes="Bold"/>
+                                </Frame>
+                                <StackLayout Grid.Column="1"
+                                             Orientation="Vertical"
+                                             Margin="4">
+                                    <Label Text="{Binding Path=Summary}"
+                                           VerticalTextAlignment="Center"
+                                           FontAttributes="Bold"/>
+                                    <Label Text="{Binding Path=Description}"
+                                           FontAttributes="Italic"
+                                           TextColor="DarkGray"
+                                           VerticalTextAlignment="Center"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

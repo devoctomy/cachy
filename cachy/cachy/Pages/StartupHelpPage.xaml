@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             x:Class="cachy.Pages.StartupHelpPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Startup Help"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton x:Name="Back"
+                                      Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Clicked="Back_Clicked">
+                </controls:GlyphButton>
+            </Grid>
+            <StackLayout Orientation="Vertical"
+                         Grid.Row="1"
+                         Margin="8"
+                         VerticalOptions="Center">
+                <Label Margin="8"
+                       Text="If you are experiencing problems starting cachy, you have a couple of options."
+                       HorizontalTextAlignment="Center"
+                       FontAttributes="Bold"></Label>
+                <Label Margin="8"
+                       Text="You can either visit our help center by tapping/clicking the 'devoctomy Help Center' button below, and looking for a solution to your problem there."
+                       HorizontalTextAlignment="Center"></Label>
+                <Label Margin="8"
+                       TextColor="Green"
+                       FontAttributes="Bold"
+                       Text="If you can't find a solution, you can also create a support ticket and we will try our best to help you."
+                       HorizontalTextAlignment="Center"></Label>
+                <controls:GlyphButton x:Name="HelpCenterButton"
+                                       Glyph="Help"
+                                       Text="devoctomy Help Center"
+                                       Clicked="HelpCenterButton_Clicked"
+                                       Mode="GlyphAndTextLeftRight"
+                                       HeightRequest="64"
+                                       BackgroundColor="{StaticResource Accent}"
+                                       EnabledGlyphColour="{StaticResource AltTextColour}"
+                                       EnabledLabelColour="{StaticResource AltTextColour}"
+                                       IconMargin="16,0,0,0"
+                                       Margin="0,16,0,0">
+                </controls:GlyphButton>
+                <Label Margin="8"
+                       Text="or"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"></Label>
+                <Label Margin="8"
+                       Text="As a last resort, you can try resetting cachy by tapping/clicking the 'Reset' button below."
+                       HorizontalTextAlignment="Center"></Label>
+                <Button x:Name="ResetButton"
+                        StyleClass="Danger"
+                        Text="Reset"
+                        Clicked="ResetButton_Clicked">
+                </Button>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

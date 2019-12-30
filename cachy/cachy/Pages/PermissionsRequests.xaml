@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:controls="clr-namespace:cachy.Controls"
+              x:Class="cachy.Pages.PermissionsRequests">
+    <ContentPage>
+        <Grid Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="64"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackLayout VerticalOptions="Center">
+                <Label Text="&#xe734;"
+                       FontSize="96"
+                       HorizontalOptions="Center"
+                       StyleClass="HeaderGlyph">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs" 
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Before we can get started, cachy requires some additional permissions.  But first, we would like to explain exactly what they are."
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Center"
+                       StyleClass="Header"/>
+                <Frame>
+                    <StackLayout VerticalOptions="Center">
+                        <Label Margin="0,16,0,0"
+                               Text="Read and Write External Storage"
+                               StyleClass="SubHeader"
+                               VerticalOptions="Center" 
+                               HorizontalOptions="Center" />
+                        <Label Text="This is required for cachy to store the files it creates.  We need to store them in a location that you can get to, so you will find all files created by cachy, in your 'Documents' folder.  cachy will not read any of your personal files."
+                               VerticalOptions="Center" 
+                               HorizontalOptions="Center"
+                               StyleClass="Body"/>
+                    </StackLayout>
+                </Frame>
+                <Label Margin="0,16,0,0"
+                       Text="Press the 'Setup Permissions' button below to continue."
+                       StyleClass="SubHeader"
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Center" />
+            </StackLayout>
+            <Button Grid.Row="1"
+                    Text="Setup Permissions"
+                    Clicked="Button_Clicked"
+                    StyleClass="Danger"></Button>
+        </Grid>
+    </ContentPage>
+</CarouselPage>

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Views.AmazonS3SetupView"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:cloud="clr-namespace:devoctomy.cachy.Framework.Data.Cloud;assembly=devoctomy.cachy.Framework"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             x:Name="Root"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Amazon S3 Configurtion"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding BackCommand}">
+                </controls:GlyphButton>
+                <controls:GlyphButton x:Name="AcceptButton"
+                                      Grid.Column="2"
+                                      Glyph="Check" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding AcceptCommand}">
+                </controls:GlyphButton>
+            </Grid>
+            <ScrollView Grid.Row="1"
+                        VerticalScrollBarVisibility="Default"
+                        HorizontalScrollBarVisibility="Never">
+                <StackLayout Orientation="Vertical"
+                             Margin="8">
+                    <controls:LabelEx Text="Access ID"
+                                      HorizontalOptions="Start"
+                                      StyleClass="SubHeader"
+                                      FontAttributes="Bold"
+                                      EnabledTextColour="{StaticResource Accent}">
+                    </controls:LabelEx>
+                    <Entry Grid.Column="1"
+                           Keyboard="Default"
+                           Placeholder="Enter Access ID here..."
+                           Text="{Binding Path=AccessID, Mode=TwoWay}"
+                           Margin="8,0,0,0">
+                    </Entry>
+
+                    <controls:LabelEx Text="Secret Key"
+                                      HorizontalOptions="Start"
+                                      StyleClass="SubHeader"
+                                      FontAttributes="Bold"                                           
+                                      EnabledTextColour="{StaticResource Accent}">
+                    </controls:LabelEx>
+                    <Entry Grid.Column="1"
+                           Keyboard="Default"
+                           Placeholder="Enter Secret Key here..."
+                           Text="{Binding Path=SecretKey, Mode=TwoWay}"
+                           Margin="8,0,0,0">
+                    </Entry>
+
+                    <controls:LabelEx Text="Region"
+                                      HorizontalOptions="Start"
+                                      StyleClass="SubHeader"
+                                      FontAttributes="Bold"
+                                      EnabledTextColour="{StaticResource Accent}">
+                    </controls:LabelEx>
+                    <Picker Grid.Column="1"
+                            ItemsSource="{x:Static cloud:AmazonS3Regions.AllRegions}"
+                            SelectedItem="{Binding Path=SelectedRegion}"
+                            Margin="8,0,0,0">
+                    </Picker>
+
+                    <controls:LabelEx Text="Bucket Name"
+                                      HorizontalOptions="Start"
+                                      StyleClass="SubHeader"
+                                      FontAttributes="Bold"
+                                      EnabledTextColour="{StaticResource Accent}">
+                    </controls:LabelEx>
+                    <Entry Grid.Column="1"
+                           Keyboard="Default"
+                           Placeholder="Enter bucket name here..."
+                           Text="{Binding Path=BucketName, Mode=TwoWay}"
+                           Margin="8,0,0,0">
+                    </Entry>
+
+                    <controls:LabelEx Text="Path"
+                                      HorizontalOptions="Start"
+                                      StyleClass="SubHeader"
+                                      FontAttributes="Bold"
+                                      EnabledTextColour="{StaticResource Accent}">
+                    </controls:LabelEx>
+                    <Entry Grid.Column="1"
+                           Keyboard="Default"
+                           Placeholder="Enter path here..."
+                           Text="{Binding Path=Path, Mode=TwoWay}"
+                           Margin="8,0,0,0">
+                    </Entry>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

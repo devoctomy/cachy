@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.App">
+  <Application.Resources>
+        <!-- Colours -->
+        <!--<Color x:Key="Accent">Black</Color>
+        <Color x:Key="TextColour">Black</Color>
+        <Color x:Key="CommentTextColour">Black</Color>
+        <Color x:Key="BackgroundColour">Black</Color>
+        <Color x:Key="ItemBorderColour">Black</Color>
+        <Color x:Key="AltGlyphButtonBackgroundColour">Black</Color>-->
+
+        <Color x:Key="Accent">#F7941C</Color>
+        <Color x:Key="TextColour">Black</Color>
+        <Color x:Key="AltTextColour">White</Color>
+        <Color x:Key="CommentTextColour">DarkGray</Color>
+        <Color x:Key="BackgroundColour">White</Color>
+        <Color x:Key="ItemBorderColour">Black</Color>
+        <Color x:Key="AltItemBorderColour">DarkGray</Color>
+        <Color x:Key="AltGlyphButtonBackgroundColour">LightGray</Color>
+      
+        <!--<Color x:Key="Dark.Accent">#FF0000</Color>
+        <Color x:Key="Dark.TextColour">White</Color>
+        <Color x:Key="Dark.CommentTextColour">DarkGray</Color>
+        <Color x:Key="Dark.BackgroundColour">Black</Color>
+        <Color x:Key="Dark.ItemBorderColour">DarkGray</Color>
+        <Color x:Key="Dark.AltGlyphButtonBackgroundColour">LightGray</Color>-->
+        <!-- Label Styles -->
+        <Style TargetType="Label" Class="HeaderGlyph">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="TextColor" Value="{StaticResource Accent}" />
+        </Style>
+        <Style TargetType="Label" Class="HeaderGlyphComment">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextColor" Value="{StaticResource CommentTextColour}" />
+        </Style>
+        <Style TargetType="Label" Class="LargeHeaderGlyph">
+            <Setter Property="FontSize" Value="46" />
+            <Setter Property="TextColor" Value="{StaticResource Accent}" />
+        </Style>
+        <Style TargetType="Label" Class="ExtraLargeHeaderGlyph">
+            <Setter Property="FontSize" Value="64" />
+            <Setter Property="TextColor" Value="{StaticResource Accent}" />
+        </Style>
+        <Style TargetType="Label" Class="ExtraExtraLargeHeaderGlyph">
+            <Setter Property="FontSize" Value="72" />
+            <Setter Property="TextColor" Value="{StaticResource Accent}" />
+        </Style>
+        <Style TargetType="Label" Class="SmallGlyph">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="TextColor" Value="{StaticResource Accent}" />
+        </Style>
+        <Style TargetType="Label" Class="Title">
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="{StaticResource TextColour}"/>
+        </Style>
+        <Style TargetType="Label" Class="Header">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="{StaticResource TextColour}"/>
+        </Style>
+        <Style TargetType="Label" Class="SubHeader">
+            <Setter Property="FontSize" Value="Default" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="{StaticResource TextColour}"/>
+        </Style>
+        <Style TargetType="Label" Class="SubHeaderComment">
+            <Setter Property="FontSize" Value="Default" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="{StaticResource CommentTextColour}"/>
+        </Style>
+        <Style TargetType="Label" Class="Body">
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="FontAttributes" Value="None" />
+            <Setter Property="TextColor" Value="{StaticResource TextColour}"/>
+        </Style>
+        <Style TargetType="Label" Class="BodyEmphasised">
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="{StaticResource TextColour}"/>
+        </Style>
+        <Style TargetType="Label" Class="Comment">
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="FontAttributes" Value="Italic" />
+            <Setter Property="TextColor" Value="{StaticResource CommentTextColour}"/>
+        </Style>
+        <Style TargetType="Label" Class="SubComment">
+            <Setter Property="FontSize" Value="Micro" />
+            <Setter Property="FontAttributes" Value="Italic" />
+            <Setter Property="TextColor" Value="{StaticResource CommentTextColour}"/>
+        </Style>
+        <!-- Entry Styles -->
+        <Style TargetType="Entry" Class="Password">
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="TextColor" Value="{StaticResource TextColour}"/>
+        </Style>
+        <Style TargetType="Entry" Class="Search">
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="TextColor" Value="{StaticResource TextColour}"/>
+        </Style>
+        <Style TargetType="Entry" Class="Normal">
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="TextColor" Value="{StaticResource TextColour}"/>
+        </Style>
+        <!-- Button Styles -->
+        <Style TargetType="Button" Class="Success">
+            <Setter Property="FontSize" Value="Default" />
+            <Setter Property="BackgroundColor" Value="Green"/>
+            <Setter Property="TextColor" Value="White"/>
+        </Style>
+        <Style TargetType="Button" Class="Danger">
+            <Setter Property="FontSize" Value="Default" />
+            <Setter Property="BackgroundColor" Value="Red"/>
+            <Setter Property="TextColor" Value="White"/>
+        </Style>
+        <Style TargetType="Button" Class="Warning">
+            <Setter Property="FontSize" Value="Default" />
+            <Setter Property="BackgroundColor" Value="Orange"/>
+            <Setter Property="TextColor" Value="White"/>
+        </Style>
+    </Application.Resources>
+</Application>

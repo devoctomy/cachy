@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             x:Class="cachy.Controls.ColourPicker"
+             x:Name="Root">
+    <ContentView.Content>
+        <ScrollView VerticalScrollBarVisibility="Default"
+                    HorizontalScrollBarVisibility="Never">
+            <controls:ExtendedFlexLayout x:Name="ColoursLayout"
+                                         ItemsSource="{Binding Path=Colours, Source={Reference Root}}"
+                                         Wrap="Wrap"
+                                         Direction="Row"
+                                         JustifyContent="Start">
+                <controls:ExtendedFlexLayout.ItemTemplate>
+                    <DataTemplate>
+                        <controls:GlyphButton WidthRequest="48"
+                                              HeightRequest="48"
+                                              BackgroundColor="{Binding Path=Colour}"
+                                              Command="{Binding Path=SelectCommand}"
+                                              CommandParameter="{Binding}">
+                        </controls:GlyphButton>
+                    </DataTemplate>
+                </controls:ExtendedFlexLayout.ItemTemplate>
+            </controls:ExtendedFlexLayout>
+        </ScrollView>
+    </ContentView.Content>
+</ContentView>

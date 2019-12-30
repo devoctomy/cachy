@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{1D13B07F-2D73-456B-ADAF-7D6C706B740D}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>cachy.UWP</RootNamespace>
+    <AssemblyName>cachy.UWP</AssemblyName>
+    <DefaultLanguage>en-gb</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <DebugType>Full</DebugType>
+    <PackageCertificateThumbprint>072E4908F5D7E23ECB284F5C0ED2DFE730C7C686</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>cachy.UWP_StoreKey.pfx</PackageCertificateKeyFile>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <AppxBundle>Never</AppxBundle>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+    <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
+    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
+    <AppxPackageDir>D:\Source\Builds\cachy\UWP\</AppxPackageDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cryptography\NativeDataProtector.cs" />
+    <Compile Include="Cryptography\NativePasswordVault.cs" />
+    <Compile Include="IO\NativeFileHandler.cs" />
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\NativeWebUtility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\AppList\AppList.scale-100.png" />
+    <Content Include="Assets\AppList\AppList.scale-125.png" />
+    <Content Include="Assets\AppList\AppList.scale-150.png" />
+    <Content Include="Assets\AppList\AppList.scale-200.png" />
+    <Content Include="Assets\AppList\AppList.scale-400.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-16.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-16_altform-unplated.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-20.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-20_altform-unplated.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-24.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-256.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-256_altform-unplated.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-30.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-30_altform-unplated.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-32.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-32_altform-unplated.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-36.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-36_altform-unplated.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-40.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-40_altform-unplated.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-48.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-48_altform-unplated.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-60.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-60_altform-unplated.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-64.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-64_altform-unplated.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-72.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-72_altform-unplated.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-80.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-80_altform-unplated.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-96.png" />
+    <Content Include="Assets\AppList\AppList.targetsize-96_altform-unplated.png" />
+    <Content Include="Assets\cachyicon_centred.svg" />
+    <Content Include="Assets\Large\Large310x310Logo.scale-100.png" />
+    <Content Include="Assets\Large\Large310x310Logo.scale-125.png" />
+    <Content Include="Assets\Large\Large310x310Logo.scale-150.png" />
+    <Content Include="Assets\Large\Large310x310Logo.scale-200.png" />
+    <Content Include="Assets\Large\Large310x310Logo.scale-400.png" />
+    <Content Include="Assets\Medium\Medium150x150Logo.scale-100.png" />
+    <Content Include="Assets\Medium\Medium150x150Logo.scale-125.png" />
+    <Content Include="Assets\Medium\Medium150x150Logo.scale-150.png" />
+    <Content Include="Assets\Medium\Medium150x150Logo.scale-200.png" />
+    <Content Include="Assets\Medium\Medium150x150Logo.scale-400.png" />
+    <Content Include="Assets\Small\Small71x71Logo.scale-100.png" />
+    <Content Include="Assets\Small\Small71x71Logo.scale-125.png" />
+    <Content Include="Assets\Small\Small71x71Logo.scale-150.png" />
+    <Content Include="Assets\Small\Small71x71Logo.scale-200.png" />
+    <Content Include="Assets\Small\Small71x71Logo.scale-400.png" />
+    <Content Include="Assets\SplashScreen\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen\SplashScreen.scale-150.png" />
+    <Content Include="Assets\SplashScreen\SplashScreen.scale-200.png" />
+    <Content Include="Assets\SplashScreen\SplashScreen.scale-400.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-100.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-125.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-150.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-200.png" />
+    <Content Include="Assets\Store\StoreLogo.scale-400.png" />
+    <Content Include="Assets\Wide\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Wide\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\Wide\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\Wide\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\Wide\Wide310x150Logo.scale-400.png" />
+    <None Include="cachy.UWP_StoreKey.pfx" />
+    <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Properties\Default.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Dropbox.Api">
+      <Version>4.5.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.264807" />
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.8" />
+    <PackageReference Include="Xamarin.Plugin.FilePicker">
+      <Version>2.0.135</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\devoctomy.cachy.Framework\devoctomy.cachy.Framework.csproj">
+      <Project>{b9f1767e-71a8-445a-816a-ecc161dc6832}</Project>
+      <Name>devoctomy.cachy.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\devoctomy.DFramework.Core\devoctomy.DFramework.Core.csproj">
+      <Project>{BB8AAE9F-8CBE-4D3E-9EF9-5ECD844786D4}</Project>
+      <Name>devoctomy.DFramework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\devoctomy.DFramework.Logging\devoctomy.DFramework.Logging.csproj">
+      <Project>{6A563E69-871F-476D-9971-70D613DCE05F}</Project>
+      <Name>devoctomy.DFramework.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\cachy\cachy.csproj">
+      <Project>{89128f19-0a34-495c-a382-d5043f6b4d44}</Project>
+      <Name>cachy</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Fonts\cachyglyphs.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+</Project>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="cachy.Controls.NumericUpDown"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             x:Name="Root"
+             PropertyChanged="Root_PropertyChanged">
+  <ContentView.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="32"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="32"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <controls:GlyphButton Glyph="Circle_Remove_01"
+                                  Mode="GlyphOnly"
+                                  WidthRequest="32"
+                                  HeightRequest="32"
+                                  HorizontalOptions="Center"
+                                  GlyphFontSize="24"
+                                  IsEnabled="{Binding Path=IsEnabled, Source={x:Reference Root}}"
+                                  Command="{Binding DownCommand, Source={x:Reference Root}}">
+            </controls:GlyphButton>
+            <Label Grid.Column="1" 
+                   Text="{Binding ValueAsString, Source={x:Reference Root}}" 
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   TextColor="{Binding ValueStateColour, Source={x:Reference Root}}">
+            </Label>
+            <controls:GlyphButton Grid.Column="2"
+                                  Glyph="Circle_Add_03"
+                                  Mode="GlyphOnly"
+                                  WidthRequest="32"
+                                  HeightRequest="32"
+                                  HorizontalOptions="Center"
+                                  GlyphFontSize="24"
+                                  IsEnabled="{Binding Path=IsEnabled, Source={x:Reference Root}}"
+                                  Command="{Binding UpCommand, Source={x:Reference Root}}">
+            </controls:GlyphButton>
+        </Grid>
+  </ContentView.Content>
+</ContentView>

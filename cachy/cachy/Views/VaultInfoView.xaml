@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:PageNavigationAwareView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:views="clr-namespace:cachy.Views"
+             xmlns:behaviors="clr-namespace:cachy.Behaviors"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             x:Class="cachy.Views.VaultInfoView"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:BooleanInverterConverter x:Key="BooleanInverterConverter"/>
+            <converters:ObjectToStringConverter x:Key="ObjectToStringConverter"/>
+            <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="48"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1"
+                       Text="Vault Information"
+                       StyleClass="Title"
+                       VerticalOptions="Center"></Label>
+                <controls:GlyphButton Glyph="In" 
+                                      Mode="GlyphOnly"
+                                      Command="{Binding BackCommand}">
+                </controls:GlyphButton>
+            </Grid>
+            <StackLayout Margin="8,8,8,0"
+                         Grid.Row="1">
+                <Label Text="Name" 
+                       StyleClass="SubHeader"></Label>
+                <Label Text="{Binding Path=Index.Name}"
+                       StyleClass="Normal"
+                       Margin="8,0,0,0"></Label>
+                <Label Text="Description" 
+                       StyleClass="SubHeader"></Label>
+                <Label Text="{Binding Path=Index.Description}"
+                       StyleClass="Normal"
+                       Margin="8,0,0,0"></Label>
+                <StackLayout IsVisible="{Binding Path=Index.IsCloudSynced, Converter={StaticResource BooleanInverterConverter}}">
+                    <Label Text="Sync Mode" 
+                           StyleClass="SubHeader"></Label>
+                    <Label Text="This vault is not synchronised with the cloud." 
+                           StyleClass="Normal"
+                           Margin="8,0,0,0"></Label>
+                    <Label Text="Full Path" 
+                           StyleClass="SubHeader"></Label>
+                    <Label Text="{Binding Path=Index.FullPath}"
+                           StyleClass="Normal"
+                           Margin="8,0,0,0"></Label>
+                    <Label Text="Last Modified Date/Time" 
+                           StyleClass="SubHeader"></Label>
+                    <Label Text="{Binding Path=Index.LastModified, Converter={StaticResource DateTimeToStringConverter}}"
+                           StyleClass="Normal"
+                           Margin="8,0,0,0"></Label>
+                </StackLayout>
+                <StackLayout IsVisible="{Binding Path=Index.IsCloudSynced}">
+                    <Label Text="Sync Mode" 
+                           StyleClass="SubHeader"></Label>
+                    <Label Text="This vault is synchronised with the cloud." 
+                           StyleClass="Normal"
+                           Margin="8,0,0,0"></Label>
+                    <Label Text="Cloud Provider" 
+                           StyleClass="SubHeader"></Label>
+                    <Label Text="{Binding Path=ProviderName}" 
+                           StyleClass="Normal"
+                           Margin="8,0,0,0"></Label>
+                    <Label Text="Path" 
+                           StyleClass="SubHeader"></Label>
+                    <Label Text="{Binding Path=Index.CloudProviderPath}" 
+                           StyleClass="Normal"
+                           Margin="8,0,0,0"></Label>
+                    <Label Text="Status" 
+                           StyleClass="SubHeader"></Label>
+                    <Label Text="{Binding Path=Index.SyncStatus.Status, Converter={StaticResource ObjectToStringConverter}}" 
+                           StyleClass="Normal"
+                           Margin="8,0,0,0"></Label>
+                    <StackLayout IsVisible="{Binding Path=Index.HasSyncStatusInformation}">
+                        <Label Text="Sync Status Information" 
+                           StyleClass="SubHeader"></Label>
+                        <Label Text="{Binding Path=Index.SyncStatus.Message}" 
+                           StyleClass="Normal"
+                           Margin="8,0,0,0"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+
+        </Grid>
+    </ContentView.Content>
+</views:PageNavigationAwareView>

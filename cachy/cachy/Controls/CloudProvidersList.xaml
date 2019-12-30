@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:cachy.Controls"
+             xmlns:converters="clr-namespace:cachy.Converters"
+             xmlns:fonts="clr-namespace:cachy.Fonts"
+             x:Class="cachy.Controls.CloudProvidersList"             
+             x:Name="Root"
+             BackgroundColor="{StaticResource BackgroundColour}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:BooleanInverterConverter x:Key="BooleanInverterConverter" />
+            <converters:BooleanToResourceColourConverter x:Key="BooleanToResourceColourConverter" />
+            <converters:BooleanToGridLengthConverter x:Key="BooleanToGridLengthConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <ListView></ListView>
+            <controls:ListViewEx x:Name="ConfiguredCloudProvidersList"
+                      ItemsSource="{Binding Path=ConfiguredCloudProviders, Source={x:Reference Root}}"
+                      CachingStrategy="RecycleElementAndDataTemplate"
+                      IsVisible="{Binding Path=HasCloudProviders, Source={x:Reference Root}}"
+                      SelectedItem="{Binding Path=SelectedProvider, Source={x:Reference Root}}"
+                      IsEnabled="{Binding Path=IsEnabled, Source={x:Reference Root}}"
+                      TagEx="{Binding Source={x:Reference Root}}"
+                      SelectionMode="{Binding Path=SelectionMode, Source={x:Reference Root}}"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame BackgroundColor="{StaticResource BackgroundColour}"
+                                   CornerRadius="0"
+                                   Padding="0">
+                                <controls:BorderView Margin="8" 
+                                                     BorderColour="{Binding Path=IsSelected, Converter={StaticResource BooleanToResourceColourConverter}, ConverterParameter='Accent,ItemBorderColour'}"
+                                                     BorderThickness="2">
+                                    <controls:BorderView.InternalContent>
+                                        <StackLayout Orientation="Vertical">
+                                            <Grid RowSpacing="0"
+                                                  ColumnSpacing="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="64"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="64"></ColumnDefinition>
+                                                    <ColumnDefinition Width="{Binding Path=CredentialError, Converter={StaticResource BooleanToGridLengthConverter}, ConverterParameter='16,0'}"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                    <RowDefinition Height="32"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <controls:LabelEx Text="{Binding Path=GlyphText}"
+                                                                  HorizontalOptions="Center"
+                                                                  VerticalOptions="Center"
+                                                                  FontSize="46"
+                                                                  Grid.RowSpan="2"
+                                                                  EnabledTextColour="{StaticResource Accent}"
+                                                                  IsEnabled="{Binding Path=IsEnabled, Source={x:Reference Name=ConfiguredCloudProvidersList}}">
+                                                    <Label.FontFamily>
+                                                        <OnPlatform x:TypeArguments="x:String"
+                                                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                                    </Label.FontFamily>
+                                                </controls:LabelEx>
+                                                <Label Grid.Column="1" 
+                                                       StyleClass="SubHeader"
+                                                       VerticalOptions="Center"
+                                                       Text="{Binding Path=ProviderKey}"
+                                                       Margin="8,0,0,0"
+                                                       IsEnabled="{Binding Path=IsEnabled, Source={x:Reference Name=ConfiguredCloudProvidersList}}"/>
+                                                <Label Grid.Row="1" 
+                                                       Grid.Column="1"
+                                                       Text="{Binding Path=UserName}"
+                                                       Margin="8,0,0,0"
+                                                       IsEnabled="{Binding Path=IsEnabled, Source={x:Reference Name=ConfiguredCloudProvidersList}}"
+                                                       LineBreakMode="TailTruncation"/>
+                                                <controls:GlyphButton Glyph="Circle_Remove_01"
+                                                                      Mode="GlyphOnly"
+                                                                      HorizontalOptions="Center"
+                                                                      VerticalOptions="Center"
+                                                                      Grid.Column="2"
+                                                                      Grid.RowSpan="2"                                                                      
+                                                                      Command="{Binding Path=TagEx.RemoveCommand, Source={x:Reference Name=ConfiguredCloudProvidersList}}"
+                                                                      CommandParameter="{Binding Path=Me}"
+                                                                      IsVisible="{Binding Path=TagEx.AllowRemoveProvider, Source={x:Reference Name=ConfiguredCloudProvidersList}}"
+                                                                      IsEnabled="{Binding Path=IsEnabled, Source={x:Reference Name=ConfiguredCloudProvidersList}}">
+                                                </controls:GlyphButton>
+                                                <StackLayout Orientation="Horizontal"
+                                                         Margin="0,4,4,0"
+                                                         VerticalOptions="Start"
+                                                         HorizontalOptions="End"
+                                                         Grid.ColumnSpan="4"
+                                                         Grid.RowSpan="2">
+                                                    <controls:LabelEx Text="&#xe73e;" 
+                                                                      TextColor="{StaticResource Accent}"   
+                                                                      IsVisible="{Binding Path=CredentialError}"
+                                                                      IsEnabled="{Binding Path=IsEnabled, Source={x:Reference Name=ConfiguredCloudProvidersList}}">
+                                                        <Label.FontFamily>
+                                                            <OnPlatform x:TypeArguments="x:String"
+                                                                        Android="Fonts/cachyglyphs.ttf#cachyglyphs" 
+                                                                        WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                                                        </Label.FontFamily>
+                                                    </controls:LabelEx>
+                                                </StackLayout>
+                                            </Grid>
+                                        </StackLayout>
+                                    </controls:BorderView.InternalContent>
+                                </controls:BorderView>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </controls:ListViewEx>
+
+            <Grid IsVisible="{Binding Path=HasCloudProviders, Source={x:Reference Root}, Converter={StaticResource BooleanInverterConverter}}"
+                  BackgroundColor="{StaticResource BackgroundColour}">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center"
+                             Margin="8">
+                    <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_CLOUD}"
+                           FontSize="74"
+                           HorizontalOptions="Center"
+                           StyleClass="HeaderGlyphComment">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String"
+                                        Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                        WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                        </Label.FontFamily>
+                    </Label>
+                    <Label StyleClass="HeaderGlyphComment"
+                           Text="You have no cloud providers configured yet. Configure one to start synchronising your cachy vault between multiple devices."
+                           HorizontalTextAlignment="Center">
+                    </Label>
+                </StackLayout>
+            </Grid>
+
+            <Grid IsVisible="{Binding Path=IsRefreshingProviders, Source={x:Reference Root}}"
+                  BackgroundColor="{StaticResource BackgroundColour}">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center"
+                             Spacing="0">
+                    <Label Text="{x:Static fonts:CachyFont.CACHYFONT_GLYPH_CLOUD}"
+                           FontSize="96"
+                           HorizontalOptions="Center"
+                           StyleClass="HeaderGlyphComment">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String"
+                                    Android="Fonts/cachyglyphs.ttf#cachyglyphs"
+                                    WinPhone="/Assets/Fonts/cachyglyphs.ttf#cachyglyphs" />
+                        </Label.FontFamily>
+                    </Label>
+                    <Label StyleClass="HeaderGlyphComment"
+                           Text="Refreshing and checking cloud provider, please wait..."
+                           HorizontalTextAlignment="Center">
+                    </Label>
+                </StackLayout>
+            </Grid>
+        </Grid>
+
+    </ContentView.Content>
+</ContentView>

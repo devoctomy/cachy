@@ -1,0 +1,34 @@
+﻿{
+  "Acknowledgements": [
+    {
+      "Name": "Newtonsoft.json",
+      "Description": "Json.NET is a popular high-performance JSON framework for .NET",
+      "Website": "https://www.newtonsoft.com/json"
+    },
+    {
+      "Name": "SharpZipLib",
+      "Description": "SharpZipLib (#ziplib, formerly NZipLib) is a compression library for Zip, GZip, BZip2, and Tar written entirely in C# for .NET. It is implemented as an assembly (installable in the GAC), and thus can easily be incorporated into other projects (in any .NET language)",
+      "Website": "https://github.com/icsharpcode/SharpZipLib"
+    },
+    {
+      "Name": "Xamarin.Plugin.FilePicker",
+      "Description": "Simple cross-platform plug-in that allows you to pick files and work with them. Version 2.0 now supports .NET Standard and Visual Studio 2017. Supported platforms are Xamarin.Android, Xamarin.iOS, Xamarin.Mac, Xamarin.Forms, UWP and Xamarin.Forms under WPF.",
+      "Website": "https://github.com/jfversluis/FilePicker-Plugin-for-Xamarin-and-Windows"
+    },
+    {
+      "Name": "SkiaSharp",
+      "Description": "SkiaSharp is a cross-platform, comprehensive 2D graphics API for all .NET platforms. And, here is where you will find all sorts of extras that you can use with it.",
+      "Website": "https://github.com/mono/SkiaSharp.Extended"
+    },
+    {
+      "Name": "SCrypt Key Derivation Class",
+      "Description": "A .NET implementation of scrypt password hash algorithm.",
+      "Website": "https://github.com/viniciuschiele/Scrypt"
+    },
+    {
+      "Name": "SecLists",
+      "Description": "SecLists is the security tester's companion. It's a collection of multiple types of lists used during security assessments, collected in one place. List types include usernames, passwords, URLs, sensitive data patterns, fuzzing payloads, web shells, and many more.",
+      "Website": "https://github.com/danielmiessler/SecLists"
+    }
+  ]
+}
