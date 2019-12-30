@@ -80,4 +80,4 @@ We would like to take a moment to introduce you to cachy, created by devoctomy (
 
 ##
 
-As of 30th December 2019.  All source code for the cachy system, including the Azure Function app used for handling OAuth connections to the app has been made open-source.
+**As of 30th December 2019.  All source code for the cachy system, including the Azure Function app used for handling OAuth connections to the app has been made open-source.**
